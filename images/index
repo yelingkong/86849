@@ -1606,7 +1606,7 @@
             <div class="content-wrapper">
                 <div class="footer-qr-code">
                     <div class="footer-app-code">
-                        <img data-original="https://img3.t8tcdn.com/to8to_pc/common/modules/footer/img/qrcode_wx.jpg" class="lazy">
+                        <img data-original="https://img3.t8tcdn.com/to8to_pc/common/modules/footer/imgimages/qrcode_wx.jpg" class="lazy">
                         <p>微信公众号</p>
                     </div>
                     <div class="footer-weixin-code">
