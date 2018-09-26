@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/list.css">
+    <title>找服务</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="hachao_app" @click="sousuo_end()">
+        <div class="header header-nav" id="headers">
+            <div class="header_nav">
+                <div class="header_navs">
+                    <div class="header_navsl fl">
+                        <a href=""><i class="icon iconfont icon-weizhi"></i>石家庄<span>[切换]</span></a>
+                        <a href=""><i class="icon iconfont icon-shoucang"></i>收藏本页</a>
+                        <a href=""><i class="icon iconfont icon-shouji"></i>手机版</a>
+                        <a href=""><i class="icon iconfont icon-qr-code"></i>二维码</a>
+                        <a href=""><i class="icon iconfont icon-gouwuche"></i>购物车(0)</a>
+                    </div>
+                    <div class="header_navsr fr">
+                        <a href=""><i class="icon iconfont icon-huiyuan"></i>会员登录</a>
+                        <span>|</span>
+                        <a href="">免费注册</a>
+                        <span>|</span>
+                        <a href="">忘记密码</a>
+                    </div>
+                </div>
+            </div>
+            <div class="header_nav2" @mouseleave="leave">
+                <div class="header-nav-content">
+                    <div class="header-nav-box">
+                        <div class="nav-content-left">
+                            <div class="to8to-logo-box">
+                                <a href="/" target="_blank">
+                            <img class="header-logo-png" src="images/logo.png">
+                        </a>
+                            </div>
+                        </div>
+                        <div class="nav-content-center" v-show="!sousuo">
+                            <ul class="nav-content-list">
+                                <li class="on">
+                                    <a href="/" class="bottom-thread nav-fzlink">
+                                首页
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(1)" v-bind:class="{ 'hover': navk[1] }">
+                                    <a href="/" class="bottom-thread">
+                                找服务
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(2)" v-bind:class="{ 'hover': navk[2] }">
+                                    <a href="/" class="bottom-thread nav-fzlink">
+                                找装修公司
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(3)" v-bind:class="{ 'hover': navk[3] }">
+                                    <a href="/yezhu/" class="bottom-thread">
+                                装修攻略
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(4)" v-bind:class="{ 'hover': navk[4] }">
+                                    <a href="/company/zxb.php" class="bottom-thread" rel="nofollow" target="_blank">
+                                装修问答
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav-content-right" @click.stop="sousuo_start">
+                            <form id="searchform-new" action="/" method="get" class="nav-fzlink">
+                                <div class="nav-content-search-center" v-bind:class="{ 'search-spread': sousuo }">
+                                    <div class="nav-search-select" v-bind:class="{ 'drop-down': sousuo_xiala,'show': sousuo }" @click="sousuo_xialas">
+                                        <span class="search-select-text">
+                                    <span class="search-select-type">{{sousuo_xq[sousuo_ck].name}}</span>
+                                        <i class="icon2 icon-arrow"></i>
+                                        </span>
+                                        <ul class="search-select-list" v-bind:class="{ 'show': sousuo_xiala }">
+                                            <li v-for='(itemCon,index) in sousuo_xq' :class="{ 'list-now': sousuo_ck==index }" @click.stop="sousuo_xialas_xz(index)">{{itemCon.name}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-search-input">
+                                        <input class="nav-search-center-input" type="text" name="keyword" autocomplete="off">
+                                        <label class="nav-search-center-text">{{sousuo_xq[sousuo_ck].miaoshu}}</label>
+                                    </div>
+                                    <i class="icon2 icon-search"></i>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="header-nav-hover" v-show="navs">
+                        <div class="nav-hover-type">
+                            <div class="nav-hover-zxgs" v-show="navk[1]">
+                                <div class="nav-type-box">
+                                    <div class="nav-type-list nav-right-dashed nav-type-region">
+                                        <a href="http://sjz.to8to.com/company/" rel="nofollow" target="_blank">
+                                        <span class="nav-type-title">按服务区域<i class="icon2 icon-right-sign"></i></span>
+                                    </a>
+                                        <ul class="nav-zxgs-area">
+                                            <li><a href="http://sjz.to8to.com/company/?service=xingtangxian" target="_blank" rel="nofollow">行唐县</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=qiaoxiqu" target="_blank" rel="nofollow">桥西</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=changanqu1" target="_blank" rel="nofollow">长安</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=jingxingkuangqu" target="_blank" rel="nofollow">井陉矿</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=qiaodongqu" target="_blank" rel="nofollow">桥东</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=xinhuaqu" target="_blank" rel="nofollow">新华</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed nav-type-price">
+                                        <a href="http://sjz.to8to.com/company/" rel="nofollow" target="_blank">
+                                        <span class="nav-type-title">按价格<i class="icon2 icon-right-sign"></i></span>
+                                    </a>
+                                        <ul>
+                                            <li><a href="http://sjz.to8to.com/company/?price=1" rel="nofollow" target="_blank">3万以下</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=2" rel="nofollow" target="_blank">3-5万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=3" rel="nofollow" target="_blank">5-8万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=4" rel="nofollow" target="_blank">8-12万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=5" rel="nofollow" target="_blank">12-18万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=6" rel="nofollow" target="_blank">18-30万</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-right-dashed nav-type-genre">
+                                        <a href="http://sjz.to8to.com/company/" target="_blank">
+                                        <span class="nav-type-title">按类型<i class="icon2 icon-right-sign"></i></span>
+                                    </a>
+                                        <ul>
+                                            <li><a href="http://sjz.to8to.com/company/ptzz/" class="nav-fzlink" target="_blank">普通住宅</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/xiaohuxing/" class="nav-fzlink" target="_blank">小户型</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/bieshu/" class="nav-fzlink" target="_blank">别墅</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/jubu/" class="nav-fzlink" target="_blank">局部装修</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-type-style">
+                                        <a href="http://sjz.to8to.com/company/" rel="nofollow" target="_blank">
+                                        <span class="nav-type-title">按风格<i class="icon2 icon-right-sign"></i>
+                                        </span>
+                                    </a>
+                                        <ul>
+                                            <li><a href="http://sjz.to8to.com/company/?style=1" class="nav-fzlink" rel="nofollow" target="_blank">简约</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=2" class="nav-fzlink" rel="nofollow" target="_blank">现代</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=3" class="nav-fzlink" rel="nofollow" target="_blank">中式</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=14" class="nav-fzlink" rel="nofollow" target="_blank">简欧</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=5" class="nav-fzlink" rel="nofollow" target="_blank">美式</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=13" class="nav-fzlink" rel="nofollow" target="_blank">北欧</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-hover-xgt" v-show="navk[2]">
+                                <div class="nav-type-box">
+                                    <div class="nav-type-list nav-right-dashed nav-type-space">
+                                        <a href="https://xiaoguotu.to8to.com/meitu/" target="_blank">
+                                    <span class="nav-type-title">按空间<i class="icon2 icon-right-sign"></i></span>
+                                </a>
+                                        <ul>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s1i0" target="_blank">客厅</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s2i0" target="_blank">卧室</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s3i0" target="_blank">餐厅</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s4i0" target="_blank">厨房</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s5i0" target="_blank">卫生间</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s6i0" target="_blank">阳台</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed nav-type-style">
+                                        <a href="https://xiaoguotu.to8to.com/tuce/" target="_blank">
+                                    <span class="nav-type-title">按风格<i class="icon2 icon-right-sign"></i></span>
+                                </a>
+                                        <ul>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s13i0" target="_blank">简约</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s15i0" target="_blank">现代</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s4i0" target="_blank">中式</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s2i0" target="_blank">欧式</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s9i0" target="_blank">美式</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s11i0" target="_blank">田园</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed">
+                                        <a href="https://xiaoguotu.to8to.com/tuce/" target="_blank">
+                                    <span class="nav-type-title">按户型<i class="icon2 icon-right-sign"></i>
+                                    </span>
+                                </a>
+                                        <ul>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s1i0" target="_blank">小户型</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s7i0" target="_blank">一居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s2i0" target="_blank">二居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s3i0" target="_blank">三居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s4i0" target="_blank">四居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s5i0" target="_blank">复式</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-list-img">
+                                        <a href="http://sjz.to8to.com/zb/" target="_blank" class="nav-fzlink">
+                                    <i class="icon2 icon-nav-mfsj">
+                                        <i class="icon2 icon-nav-xs"></i>
+                                    </i>
+                                    <span class="nav-list-text">免费设计</span>
+                                </a>
+                                        <a href="http://www.shejiben.com/zb/?from=t8tnav1" target="_blank">
+                                    <i class="icon2 icon-nav-gdsj"></i>
+                                    <span class="nav-list-text">定制设计</span>
+                                </a>
+                                        <a href="https://xiaoguotu.to8to.com/tumax/" target="_blank">
+                                    <i class="icon2 icon-nav-diy"></i>
+                                    <span class="nav-list-text">云设计</span>
+                                </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-hover-zxgl" v-show="navk[3]">
+                                <div class="nav-type-box ">
+                                    <div class="nav-type-list nav-type-small nav-right-dashed">
+                                        <span class="nav-type-title" title="不可点">装修前<i class="icon2 icon-right-sign"></i></span>
+                                        <ul>
+                                            <li><a href="/yezhu/shoufang/" target="_blank">收房</a></li>
+                                            <li><a href="/yezhu/sheji/" target="_blank">设计</a></li>
+                                            <li><a href="/yezhu/hetong/" target="_blank">合同</a></li>
+                                            <li><a href="/yezhu/yusuan/" target="_blank">预算</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed">
+                                        <span class="nav-type-title" title="不可点">装修中<i class="icon2 icon-right-sign"></i></span>
+                                        <ul>
+                                            <li><a href="/yezhu/chaigai/" target="_blank">拆改</a></li>
+                                            <li><a href="/yezhu/shuidian/" target="_blank">水电</a></li>
+                                            <li><a href="/yezhu/fangshui/" target="_blank">防水</a></li>
+                                            <li><a href="/yezhu/niwa/" target="_blank">泥瓦</a></li>
+                                            <li><a href="/yezhu/mugong/" target="_blank">木工</a></li>
+                                            <li><a href="/yezhu/youqi/" target="_blank">油漆</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-type-least nav-right-dashed">
+                                        <span class="nav-type-title" title="不可点">装修后<i class="icon2 icon-right-sign"></i></span>
+                                        <ul>
+                                            <li><a href="/yezhu/jungong/" target="_blank">竣工</a></li>
+                                            <li><a href="/yezhu/ruzhu/" target="_blank">入住</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-list-img zxgl-list-inlet">
+                                        <a href="/yezhu/3minute.html" class="list-img-big" target="_blank">
+                                    <i class="icon2 icon-nav-xzx"></i>
+                                    <span class="nav-list-text">3分钟学装修</span>
+                                </a>
+                                        <a href="/riji/" class="list-img-riji" target="_blank">
+                                   <i class="icon2 icon-nav-riji">
+                                        <i class="icon2 icon-nav-hot"></i>
+                                    </i>
+                                    <span class="nav-list-text">业主日记</span>
+                                </a>
+                                        <a href="/ask/" target="_blank">
+                                    <i class="icon2 icon-nav-ask"></i>
+                                    <span class="nav-list-text">在线问答</span>
+                                </a>
+                                        <a href="http://sjz.to8to.com/zwj/" class="nav-fzlink margin-zero" target="_blank">
+                                    <i class="icon2 icon-nav-case"></i>
+                                    <span class="nav-list-text">小区案例</span>
+                                </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-hover-more" v-show="navk[4]">
+                                <div class="nav-type-box">
+                                    <div class="nav-list-img">
+                                        <a href="http://mall.to8to.com/" target="_blank">
+                                    <i class="icon2 icon-nav-jjsc"></i>
+                                    <span class="nav-list-text">家居商城</span>
+                                </a>
+                                        <a href="/yezhu/zxbj.php" target="_blank">
+                                    <i class="icon2 icon-nav-mfbj">
+                                        <i class="icon2 icon-nav-mf"></i>
+                                    </i>
+                                    <span class="nav-list-text">免费报价</span>
+                                </a>
+                                        <a href="http://www.shejiben.com/zsj/?from=t8tnav1" target="_blank">
+                                    <i class="icon2 icon-nav-sjb">
+                                        <i class="icon2 icon-nav-jp"></i>
+                                    </i>
+                                    <span class="nav-list-text">找设计师</span>
+                                </a>
+                                        <a href="http://sjz.to8to.com/zb/index6.html" class="nav-fzlink not-ground-city" rel="nofollow" target="_blank">
+                                        <i class="icon2 icon-nav-mfyf"></i>
+                                        <span class="nav-list-text">免费验房</span>
+                                    </a>
+                                        <a href="/zb/index11.html" rel="nofollow" target="_blank" class="not-ground-city">
+                                        <i class="icon2 icon-nav-zxd"></i>
+                                        <span class="nav-list-text">装修分期</span>
+                                    </a>
+                                        <a href="/yezhu/enjoyhome.php" target="_blank" class="not-ground-city">
+                                        <i class="icon2 icon-nav-zzj"></i>
+                                        <span class="nav-list-text">至享家</span>
+                                    </a>
+                                        <a href="/smarthome/" target="_blank" class="not-ground-city">
+                                        <i class="icon2 icon-nav-znjj"></i>
+                                        <span class="nav-list-text">智能家居</span>
+                                    </a>
+                                        <a href="/zb/wholeHouseCustom.php" target="_blank">
+                                    <i class="icon-nav-qwdz"></i>
+                                    <span class="nav-list-text">全屋定制</span>
+                                </a>
+                                        <a href="http://news.to8to.com/" class="margin-zero" target="_blank">
+                                    <i class="icon2 icon-nav-news"></i>
+                                    <span class="nav-list-text">热点新闻</span>
+                                </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="header-border-bottom"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container list_fenlei">
+            <div class="mbx"><a href="">装修招标</a> <span>></span> <a href="">整装</a> <span>></span> 我需要量房</div>
+            <div class="xgt_select_type">
+                <dl class="xgt_st_dl">
+                    <dt>类型</dt>
+                    <dd>
+                        <a href="//xiaoguotu.to8to.com/list-h1s1i0" class="on"> 客厅
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s2i0"> 卧室
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s3i0"> 餐厅
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s4i0"> 厨房
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s5i0"> 卫生间
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s6i0"> 阳台
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s7i0"> 书房
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s8i0"> 玄关
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s9i0"> 过道
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s10i0"> 儿童房
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s11i0"> 衣帽间
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-h1s12i0"> 花园
+                </a>
+                    </dd>
+                </dl>
+                <dl class="xgt_st_dl">
+                    <dt>服务区域</dt>
+                    <dd>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=336&amp;a6=&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow"> 背景墙
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_dd"> 吊顶
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_gd"> 隔断
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_cl"> 窗帘
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_pc"> 飘窗
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_ttm"> 榻榻米
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_cg"> 橱柜
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_bgj"> 博古架
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_gl"> 阁楼
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=249&amp;a6=&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow"> 隐形门
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_bt"> 吧台
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_jg"> 酒柜
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=23&amp;a6=&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow"> 鞋柜
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=24&amp;a6=&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow"> 衣柜
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=19&amp;a6=&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow"> 窗户
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=20&amp;a6=&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow"> 相片墙
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_lt"> 楼梯
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_ct"> 窗台
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_lmz"> 罗马柱
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_yk"> 垭口
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_bc"> 壁橱
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_mk"> 门口/大门
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list-kt_ldc"> 落地窗
+                    </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=359&amp;a6=&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow"> 其它
+                    </a>
+                    </dd>
+                </dl>
+                <dl class="xgt_st_dl">
+                    <dt>承接价位</dt>
+                    <dd>
+                        <a href="//xiaoguotu.to8to.com/list-jy_kt">简约
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-xd_kt">现代
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-zs_kt">中式
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-os_kt">欧式
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-ms_kt">美式
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-ty_kt">田园
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=&amp;a6=6&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow">新古典
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=&amp;a6=0&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow" class="on">不限
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-dzh_kt">地中海
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-dny_kt">东南亚
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-rs_kt">日式
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-yj_kt">宜家
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-bo_kt">北欧
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-jo_kt">简欧
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=&amp;a6=21&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow">巴洛克
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list-fg_kt">复古
+                </a>
+                        <a href="//xiaoguotu.to8to.com/list.php?a1=0&amp;a2=1&amp;a3=&amp;a4=1&amp;a5=&amp;a6=100&amp;a7=&amp;a8=&amp;a9=0" rel="nofollow">混搭
+                </a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <!-- 看设计 -->
+        <!-- 找装修服务 -->
+        <div class="index-zzxff index-common">
+            <div class="content-wrapper clearfix">
+                <div class="index-zzxgs index-zzxgs-list">
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-zzxgs-k">
+                        <div class="index-zzxgs-k2">
+                            <a href=""><img src="images/index_gs.jpg" alt=""></a>
+                            <div class="titles">
+                                <h3>￥5000.00</h3>
+                                <span>36人付款</span>
+                            </div>
+                            <div class="titles2">
+                                <a>
+                                    <p>金螳螂家装修设计全包装修家装公司二手房老 房翻新婚房设计效果图</p>
+                                </a>
+                                <a href="">
+                                    <p class="s"><i class="icon iconfont icon-zhankai"></i> 三金螳螂官方旗舰店</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="bottom-page">
+                <div class="pages"><em>共有<b>34855</b>条</em><strong>1</strong><a href="/list-h1s1i0p2">2</a><a href="/list-h1s1i0p3">3</a><a href="/list-h1s1i0p4">4</a><a href="/list-h1s1i0p5">5</a><a href="/list-h1s1i0p6">6</a><a href="/list-h1s1i0p7">7</a><a href="/list-h1s1i0p8">8</a><a href="/list-h1s1i0p9">9</a><a href="/list-h1s1i0p10">10</a><i>...</i> <a href="/list-h1s1i0p349" class="last">349</a><a href="/list-h1s1i0p2" class="next" id=nextpageid>下一页<b></b></a></div>
+            </div>
+        </div>
+        <!-- 找装修公司 -->
+        <div class="footer">
+            <div class="footer-bottom">
+                <div class="footer-websites-box">
+                    <div class="content-wrapper">
+                        <div class="footer-city-list">
+                            <a rel="nofollow" href="http://wpa.qq.com/msgrd?V=1&amp;uin=895278840&amp;Site=-&amp;Menu=yes" target="_blank">友链合作></a><span @click="tab(1)" :class="{'on':tabs[1]}">友情链接</span> <span @click="tab(2)" :class="{'on':tabs[2]}">热门城市</span> <span @click="tab(3)" :class="{'on':tabs[3]}">附近城市</span> </div>
+                        <div class="footer-websites">
+                            <ul class="clearfix" v-show="tabs[1]">
+                                <li><a href="http://hebei.zjtcn.com/" target="_blank">
+                                河北造价信息网 </a></li>
+                                <li><a href="http://zu.zhijia.com/" target="_blank">
+                                石家庄租房 </a></li>
+                                <li><a href="http://sjz.273.cn/" target="_blank">
+                                石家庄二手车 </a></li>
+                                <li><a href="http://hbs.bidcenter.com.cn/" target="_blank">
+                                石家庄招标网 </a></li>
+                                <li><a href="http://sjz.zhaoshang800.com/" target="_blank">
+                                石家庄厂房出租 </a></li>
+                                <li><a href="http://sjz.zxzhijia.com/" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://sjz.wed114.cn/" target="_blank">
+                                石家庄婚纱摄影 </a></li>
+                                <li><a href="http://shijiazhuang.3dkezhan.com/" target="_blank">
+                                石家庄住宿 </a></li>
+                                <li><a href="http://shijiazhuang.365azw.com/" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://suzhou.okcis.cn/" target="_blank">
+                                苏州招标网 </a></li>
+                                <li><a href="http://sjz.dyrs.com.cn/" target="_blank">
+                                石家庄装修 </a></li>
+                                <li><a href="http://shijiazhuang.edeng.cn/" target="_blank">
+                                石家庄分类信息网 </a></li>
+                                <li><a href="http://shijiazhuang.zsezt.com" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://www.shushi100.com/shijiazhuang/" target="_blank">
+                                石家庄中央空调 </a></li>
+                                <li><a href="https://shijiazhuang.mmall.com/" target="_blank">
+                                石家庄装修公司 </a></li>
+                                <li><a href="http://bz.xafc.com/" target="_blank">
+                                亳州房产网 </a></li>
+                                <li><a href="http://shijiazhuang.99wed.com/" target="_blank">
+                                石家庄婚纱照 </a></li>
+                                <li><a href="http://shijiazhuang.zupuk.com" target="_blank">
+                                石家庄商铺网 </a></li>
+                                <li><a href="http://tangshan.taoche.com" target="_blank">
+                                唐山二手车 </a></li>
+                                <li><a href="/company/sjz/" target="_blank">
+                                石家庄装修公司 </a></li>
+                                <li><a href="http://sjz.tengfang.net/" target="_blank">
+                                石家庄房产 </a></li>
+                                <li><a href="http://www.sjzcsrj.cn/" target="_blank">
+                                石家庄家装公司 </a></li>
+                                <li><a href="http://sjz.fang.com/" target="_blank">
+                                石家庄房产网 </a></li>
+                                <li><a href="http://sjz.xtuan.com" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://sjz.zx123.cn/" target="_blank">
+                                石家庄装修 </a></li>
+                                <li><a href="http://shijiazhuang.66zhuang.com/" target="_blank">
+                                石家庄装修公司 </a></li>
+                                <li><a href="http://sj.cityhouse.cn/" target="_blank">
+                                石家庄房产网 </a></li>
+                                <li><a href="http://shijiazhuang.kuyiso.com/" target="_blank">
+                                石家庄分类信息 </a></li>
+                                <li><a href="http://shijiazhuang.huangye88.com/" target="_blank">
+                                石家庄信息网 </a></li>
+                                <li><a href="http://sjz.jiwu.com/" target="_blank">
+                                石家庄买房 </a></li>
+                                <li><a href="http://sjz.lieju.com/" target="_blank">
+                                石家庄分类信息网 </a></li>
+                                <li><a href=" http://sjz.ssjzw.com" target="_blank">
+                                石家庄兼职网  </a></li>
+                                <li><a href=" http://sjz.bqqm.com/" target="_blank">
+                                石家庄便民网  </a></li>
+                                <li><a href="https://www.glass.cn/sjz/" target="_blank">
+                                石家庄玻璃网 </a></li>
+                            </ul>
+                            <ul class="clearfix" v-show="tabs[2]">
+                                <li><a href="http://sz.to8to.com/" target="_blank">
+                                 深圳装修  </a></li>
+                                <li><a href="http://bj.to8to.com/" target="_blank">
+                                 北京装修  </a></li>
+                                <li><a href="http://sh.to8to.com/" target="_blank">
+                                 上海装修  </a></li>
+                                <li><a href="http://gz.to8to.com/" target="_blank">
+                                 广州装修  </a></li>
+                                <li><a href="http://cd.to8to.com/" target="_blank">
+                                 成都装修  </a></li>
+                                <li><a href="http://hz.to8to.com/" target="_blank">
+                                 杭州装修  </a></li>
+                                <li><a href="http://sy.to8to.com/" target="_blank">
+                                 沈阳装修  </a></li>
+                                <li><a href="http://cq.to8to.com/" target="_blank">
+                                 重庆装修  </a></li>
+                                <li><a href="http://tj.to8to.com/" target="_blank">
+                                 天津装修  </a></li>
+                                <li><a href="http://wh.to8to.com/" target="_blank">
+                                 武汉装修  </a></li>
+                            </ul>
+                            <ul class="clearfix" v-show="tabs[3]">
+                                <li><a href="http://sjz.to8to.com/" target="_blank" title="石家庄装修网">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://ts.to8to.com/" target="_blank" title="唐山装修网">
+                                唐山装修网 </a></li>
+                                <li><a href="http://lf.to8to.com/" target="_blank" title="廊坊装修网">
+                                廊坊装修网 </a></li>
+                                <li><a href="http://qinhuangdao.to8to.com/" target="_blank" title="秦皇岛装修网">
+                                秦皇岛装修网 </a></li>
+                                <li><a href="http://baoding.to8to.com/" target="_blank" title="保定装修网">
+                                保定装修网 </a></li>
+                                <li><a href="http://handan.to8to.com/" target="_blank" title="邯郸装修网">
+                                邯郸装修网 </a></li>
+                                <li><a href="http://cangzhou.to8to.com/" target="_blank" title="沧州装修网">
+                                沧州装修网 </a></li>
+                                <li><a href="http://zhangjiakou.to8to.com/" target="_blank" title="张家口装修网">
+                                张家口装修网 </a></li>
+                                <li><a href="http://hengshui.to8to.com/" target="_blank" title="衡水装修网">
+                                衡水装修网 </a></li>
+                                <li><a href="http://xingtai.to8to.com/" target="_blank" title="邢台装修网">
+                                邢台装修网 </a></li>
+                                <li><a href="http://chengde.to8to.com/" target="_blank" title="承德装修网">
+                                承德装修网 </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-company-box">
+                    <div class="content-wrapper">
+                        <div class="footer-qr-code">
+                            <div class="footer-app-code">
+                                <img data-original="/qrcode_wx.jpg" src="images/qrcode_wx.jpg" class="lazy">
+                                <p>微信公众号</p>
+                            </div>
+                            <div class="footer-weixin-code">
+                                <img data-original="images/qrcode_app.jpg" src="images/qrcode_app.jpg" class="lazy">
+                                <p>土巴兔APP</p>
+                            </div>
+                        </div>
+                        <div class="footer-company-info">
+                            <ul>
+                                <li><a href="/about/index.html" target="_blank" rel="nofollow">关于我们</a></li>
+                                <li><a href="/about/contact.html" target="_blank" rel="nofollow">联系我们</a></li>
+                                <li><a href="/about/meiti_bd.php" target="_blank" rel="nofollow">媒体报道</a></li>
+                                <li><a href="/help" target="_blank" rel="nofollow">帮助中心</a></li>
+                                <li><a href="/about/feedback.php" target="_blank" rel="nofollow">意见反馈</a></li>
+                                <li><a href="/about/recruiter.php" target="_blank" rel="nofollow">高薪聘请</a></li>
+                                <li><a href="http://hr.to8to.com/xyzp" target="_blank" rel="nofollow">校园招聘</a></li>
+                                <li><a href="/about/law.html" target="_blank" rel="nofollow">法律声明</a></li>
+                                <li><a href="/about/shangwu.php" target="_blank" rel="nofollow">商务合作</a></li>
+                                <li><a href="/about/complain.html" target="_blank" rel="nofollow">侵权投诉</a></li>
+                            </ul>
+                            <p class="footer-company-state">
+                                免责声明：本网站部分内容由用户自行上传，如权利人发现存在误传其作品情形，请及时与本站联系。© 2018 Tubatu.com 土巴兔装修网和设计师社区 保留所有权利
+                            </p>
+                            <p class="footer-company-icp">
+                                <span>中国装修网  <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">增值电信业务许可证：粤B2-20120566号</a></span>
+                                <span><a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow" class="footer_y_icp">粤ICP备08125558号-1</a></span>
+                                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001458" class="footer_new_ga" rel="nofollow">
+                            <i class="index-icon6 fl"></i>
+                            <span>粤公网安备 44030502001458号</span>
+                        </a>
+                                <a href="https://szcert.ebs.org.cn/c0adeb1a-0ad1-476b-b4bd-661a79e90877" target="_blank" title="深圳市市场监督管理局企业主体身份公示" alt="深圳市市场监督管理局企业主体身份公示" rel="nofollow">
+                            <i class="index-icon fbc-iocn1"></i>
+                        </a>
+                                <a href="http://www.cyberpolice.cn/wfjb/" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn2"></i>
+                        </a>
+                                <a href="http://www.cyberpolice.cn/wfjb/" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn3"></i>
+                        </a>
+                                <a href="https://search.szfw.org/cert/l/CX20140929005207005275" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn4"></i>
+                        </a>
+                                <a href="http://si.trustutn.org/info?sn=345170814029859496005&amp;certType=1" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn5"></i>
+                        </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btm-float" style="">
+            <div class="btm-float__bg"></div>
+            <div class="btm-float__content clearfix">
+                <img class="btm-float__img" src="images/btm_img.png" alt="">
+                <div class="btm-line">
+                    <input id="btm_number" class="btm-number" placeholder="请输入电话" type="text">
+                </div>
+                <div class="btm-city district" id="btm_citybox">
+                    <select id="city" name="city">
+                        <option value="石家庄">石家庄</option>
+                        <option value="衡水">衡水</option>
+                        <option value="邢台">邢台</option>
+                        <option value="保定">保定</option>
+                    </select>
+                </div>
+                <p class="btm-btn">抢先预约</p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

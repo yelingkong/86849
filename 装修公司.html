@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>装修公司</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="hachao_app" @click="sousuo_end()">
+        <div class="header header-nav" id="headers">
+            <div class="header_nav">
+                <div class="header_navs">
+                    <div class="header_navsl fl">
+                        <a href=""><i class="icon iconfont icon-weizhi"></i>石家庄<span>[切换]</span></a>
+                        <a href=""><i class="icon iconfont icon-shoucang"></i>收藏本页</a>
+                        <a href=""><i class="icon iconfont icon-shouji"></i>手机版</a>
+                        <a href=""><i class="icon iconfont icon-qr-code"></i>二维码</a>
+                        <a href=""><i class="icon iconfont icon-gouwuche"></i>购物车(0)</a>
+                    </div>
+                    <div class="header_navsr fr">
+                        <a href=""><i class="icon iconfont icon-huiyuan"></i>会员登录</a>
+                        <span>|</span>
+                        <a href="">免费注册</a>
+                        <span>|</span>
+                        <a href="">忘记密码</a>
+                    </div>
+                </div>
+            </div>
+            <div class="header_nav2" @mouseleave="leave">
+                <div class="header-nav-content">
+                    <div class="header-nav-box">
+                        <div class="nav-content-left">
+                            <div class="to8to-logo-box">
+                                <a href="/" target="_blank">
+                            <img class="header-logo-png" src="images/logo.png">
+                        </a>
+                            </div>
+                        </div>
+                        <div class="nav-content-center" v-show="!sousuo">
+                            <ul class="nav-content-list">
+                                <li class="on">
+                                    <a href="/" class="bottom-thread nav-fzlink">
+                                首页
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(1)" v-bind:class="{ 'hover': navk[1] }">
+                                    <a href="/" class="bottom-thread">
+                                找服务
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(2)" v-bind:class="{ 'hover': navk[2] }">
+                                    <a href="/" class="bottom-thread nav-fzlink">
+                                找装修公司
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(3)" v-bind:class="{ 'hover': navk[3] }">
+                                    <a href="/yezhu/" class="bottom-thread">
+                                装修攻略
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                                <li class="have-arrow" @mouseenter="enter(4)" v-bind:class="{ 'hover': navk[4] }">
+                                    <a href="/company/zxb.php" class="bottom-thread" rel="nofollow" target="_blank">
+                                装修问答
+                                <i class="icon2 icon-arrow"></i>
+                            </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="nav-content-right" @click.stop="sousuo_start">
+                            <form id="searchform-new" action="/" method="get" class="nav-fzlink">
+                                <div class="nav-content-search-center" v-bind:class="{ 'search-spread': sousuo }">
+                                    <div class="nav-search-select" v-bind:class="{ 'drop-down': sousuo_xiala,'show': sousuo }" @click="sousuo_xialas">
+                                        <span class="search-select-text">
+                                    <span class="search-select-type">{{sousuo_xq[sousuo_ck].name}}</span>
+                                        <i class="icon2 icon-arrow"></i>
+                                        </span>
+                                        <ul class="search-select-list" v-bind:class="{ 'show': sousuo_xiala }">
+                                            <li v-for='(itemCon,index) in sousuo_xq' :class="{ 'list-now': sousuo_ck==index }" @click.stop="sousuo_xialas_xz(index)">{{itemCon.name}}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-search-input">
+                                        <input class="nav-search-center-input" type="text" name="keyword" autocomplete="off">
+                                        <label class="nav-search-center-text">{{sousuo_xq[sousuo_ck].miaoshu}}</label>
+                                    </div>
+                                    <i class="icon2 icon-search"></i>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="header-nav-hover" v-show="navs">
+                        <div class="nav-hover-type">
+                            <div class="nav-hover-zxgs" v-show="navk[1]">
+                                <div class="nav-type-box">
+                                    <div class="nav-type-list nav-right-dashed nav-type-region">
+                                        <a href="http://sjz.to8to.com/company/" rel="nofollow" target="_blank">
+                                        <span class="nav-type-title">按服务区域<i class="icon2 icon-right-sign"></i></span>
+                                    </a>
+                                        <ul class="nav-zxgs-area">
+                                            <li><a href="http://sjz.to8to.com/company/?service=xingtangxian" target="_blank" rel="nofollow">行唐县</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=qiaoxiqu" target="_blank" rel="nofollow">桥西</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=changanqu1" target="_blank" rel="nofollow">长安</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=jingxingkuangqu" target="_blank" rel="nofollow">井陉矿</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=qiaodongqu" target="_blank" rel="nofollow">桥东</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?service=xinhuaqu" target="_blank" rel="nofollow">新华</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed nav-type-price">
+                                        <a href="http://sjz.to8to.com/company/" rel="nofollow" target="_blank">
+                                        <span class="nav-type-title">按价格<i class="icon2 icon-right-sign"></i></span>
+                                    </a>
+                                        <ul>
+                                            <li><a href="http://sjz.to8to.com/company/?price=1" rel="nofollow" target="_blank">3万以下</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=2" rel="nofollow" target="_blank">3-5万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=3" rel="nofollow" target="_blank">5-8万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=4" rel="nofollow" target="_blank">8-12万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=5" rel="nofollow" target="_blank">12-18万</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?price=6" rel="nofollow" target="_blank">18-30万</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-right-dashed nav-type-genre">
+                                        <a href="http://sjz.to8to.com/company/" target="_blank">
+                                        <span class="nav-type-title">按类型<i class="icon2 icon-right-sign"></i></span>
+                                    </a>
+                                        <ul>
+                                            <li><a href="http://sjz.to8to.com/company/ptzz/" class="nav-fzlink" target="_blank">普通住宅</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/xiaohuxing/" class="nav-fzlink" target="_blank">小户型</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/bieshu/" class="nav-fzlink" target="_blank">别墅</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/jubu/" class="nav-fzlink" target="_blank">局部装修</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-type-style">
+                                        <a href="http://sjz.to8to.com/company/" rel="nofollow" target="_blank">
+                                        <span class="nav-type-title">按风格<i class="icon2 icon-right-sign"></i>
+                                        </span>
+                                    </a>
+                                        <ul>
+                                            <li><a href="http://sjz.to8to.com/company/?style=1" class="nav-fzlink" rel="nofollow" target="_blank">简约</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=2" class="nav-fzlink" rel="nofollow" target="_blank">现代</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=3" class="nav-fzlink" rel="nofollow" target="_blank">中式</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=14" class="nav-fzlink" rel="nofollow" target="_blank">简欧</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=5" class="nav-fzlink" rel="nofollow" target="_blank">美式</a></li>
+                                            <li><a href="http://sjz.to8to.com/company/?style=13" class="nav-fzlink" rel="nofollow" target="_blank">北欧</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-hover-xgt" v-show="navk[2]">
+                                <div class="nav-type-box">
+                                    <div class="nav-type-list nav-right-dashed nav-type-space">
+                                        <a href="https://xiaoguotu.to8to.com/meitu/" target="_blank">
+                                    <span class="nav-type-title">按空间<i class="icon2 icon-right-sign"></i></span>
+                                </a>
+                                        <ul>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s1i0" target="_blank">客厅</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s2i0" target="_blank">卧室</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s3i0" target="_blank">餐厅</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s4i0" target="_blank">厨房</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s5i0" target="_blank">卫生间</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h1s6i0" target="_blank">阳台</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed nav-type-style">
+                                        <a href="https://xiaoguotu.to8to.com/tuce/" target="_blank">
+                                    <span class="nav-type-title">按风格<i class="icon2 icon-right-sign"></i></span>
+                                </a>
+                                        <ul>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s13i0" target="_blank">简约</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s15i0" target="_blank">现代</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s4i0" target="_blank">中式</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s2i0" target="_blank">欧式</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s9i0" target="_blank">美式</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h3s11i0" target="_blank">田园</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed">
+                                        <a href="https://xiaoguotu.to8to.com/tuce/" target="_blank">
+                                    <span class="nav-type-title">按户型<i class="icon2 icon-right-sign"></i>
+                                    </span>
+                                </a>
+                                        <ul>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s1i0" target="_blank">小户型</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s7i0" target="_blank">一居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s2i0" target="_blank">二居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s3i0" target="_blank">三居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s4i0" target="_blank">四居</a></li>
+                                            <li><a href="https://xiaoguotu.to8to.com/list-h2s5i0" target="_blank">复式</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-list-img">
+                                        <a href="http://sjz.to8to.com/zb/" target="_blank" class="nav-fzlink">
+                                    <i class="icon2 icon-nav-mfsj">
+                                        <i class="icon2 icon-nav-xs"></i>
+                                    </i>
+                                    <span class="nav-list-text">免费设计</span>
+                                </a>
+                                        <a href="http://www.shejiben.com/zb/?from=t8tnav1" target="_blank">
+                                    <i class="icon2 icon-nav-gdsj"></i>
+                                    <span class="nav-list-text">定制设计</span>
+                                </a>
+                                        <a href="https://xiaoguotu.to8to.com/tumax/" target="_blank">
+                                    <i class="icon2 icon-nav-diy"></i>
+                                    <span class="nav-list-text">云设计</span>
+                                </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-hover-zxgl" v-show="navk[3]">
+                                <div class="nav-type-box ">
+                                    <div class="nav-type-list nav-type-small nav-right-dashed">
+                                        <span class="nav-type-title" title="不可点">装修前<i class="icon2 icon-right-sign"></i></span>
+                                        <ul>
+                                            <li><a href="/yezhu/shoufang/" target="_blank">收房</a></li>
+                                            <li><a href="/yezhu/sheji/" target="_blank">设计</a></li>
+                                            <li><a href="/yezhu/hetong/" target="_blank">合同</a></li>
+                                            <li><a href="/yezhu/yusuan/" target="_blank">预算</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-right-dashed">
+                                        <span class="nav-type-title" title="不可点">装修中<i class="icon2 icon-right-sign"></i></span>
+                                        <ul>
+                                            <li><a href="/yezhu/chaigai/" target="_blank">拆改</a></li>
+                                            <li><a href="/yezhu/shuidian/" target="_blank">水电</a></li>
+                                            <li><a href="/yezhu/fangshui/" target="_blank">防水</a></li>
+                                            <li><a href="/yezhu/niwa/" target="_blank">泥瓦</a></li>
+                                            <li><a href="/yezhu/mugong/" target="_blank">木工</a></li>
+                                            <li><a href="/yezhu/youqi/" target="_blank">油漆</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-type-list nav-type-least nav-right-dashed">
+                                        <span class="nav-type-title" title="不可点">装修后<i class="icon2 icon-right-sign"></i></span>
+                                        <ul>
+                                            <li><a href="/yezhu/jungong/" target="_blank">竣工</a></li>
+                                            <li><a href="/yezhu/ruzhu/" target="_blank">入住</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-list-img zxgl-list-inlet">
+                                        <a href="/yezhu/3minute.html" class="list-img-big" target="_blank">
+                                    <i class="icon2 icon-nav-xzx"></i>
+                                    <span class="nav-list-text">3分钟学装修</span>
+                                </a>
+                                        <a href="/riji/" class="list-img-riji" target="_blank">
+                                   <i class="icon2 icon-nav-riji">
+                                        <i class="icon2 icon-nav-hot"></i>
+                                    </i>
+                                    <span class="nav-list-text">业主日记</span>
+                                </a>
+                                        <a href="/ask/" target="_blank">
+                                    <i class="icon2 icon-nav-ask"></i>
+                                    <span class="nav-list-text">在线问答</span>
+                                </a>
+                                        <a href="http://sjz.to8to.com/zwj/" class="nav-fzlink margin-zero" target="_blank">
+                                    <i class="icon2 icon-nav-case"></i>
+                                    <span class="nav-list-text">小区案例</span>
+                                </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nav-hover-more" v-show="navk[4]">
+                                <div class="nav-type-box">
+                                    <div class="nav-list-img">
+                                        <a href="http://mall.to8to.com/" target="_blank">
+                                    <i class="icon2 icon-nav-jjsc"></i>
+                                    <span class="nav-list-text">家居商城</span>
+                                </a>
+                                        <a href="/yezhu/zxbj.php" target="_blank">
+                                    <i class="icon2 icon-nav-mfbj">
+                                        <i class="icon2 icon-nav-mf"></i>
+                                    </i>
+                                    <span class="nav-list-text">免费报价</span>
+                                </a>
+                                        <a href="http://www.shejiben.com/zsj/?from=t8tnav1" target="_blank">
+                                    <i class="icon2 icon-nav-sjb">
+                                        <i class="icon2 icon-nav-jp"></i>
+                                    </i>
+                                    <span class="nav-list-text">找设计师</span>
+                                </a>
+                                        <a href="http://sjz.to8to.com/zb/index6.html" class="nav-fzlink not-ground-city" rel="nofollow" target="_blank">
+                                        <i class="icon2 icon-nav-mfyf"></i>
+                                        <span class="nav-list-text">免费验房</span>
+                                    </a>
+                                        <a href="/zb/index11.html" rel="nofollow" target="_blank" class="not-ground-city">
+                                        <i class="icon2 icon-nav-zxd"></i>
+                                        <span class="nav-list-text">装修分期</span>
+                                    </a>
+                                        <a href="/yezhu/enjoyhome.php" target="_blank" class="not-ground-city">
+                                        <i class="icon2 icon-nav-zzj"></i>
+                                        <span class="nav-list-text">至享家</span>
+                                    </a>
+                                        <a href="/smarthome/" target="_blank" class="not-ground-city">
+                                        <i class="icon2 icon-nav-znjj"></i>
+                                        <span class="nav-list-text">智能家居</span>
+                                    </a>
+                                        <a href="/zb/wholeHouseCustom.php" target="_blank">
+                                    <i class="icon-nav-qwdz"></i>
+                                    <span class="nav-list-text">全屋定制</span>
+                                </a>
+                                        <a href="http://news.to8to.com/" class="margin-zero" target="_blank">
+                                    <i class="icon2 icon-nav-news"></i>
+                                    <span class="nav-list-text">热点新闻</span>
+                                </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="header-border-bottom"></span>
+                </div>
+            </div>
+        </div>
+        <!-- 装修公司 -->
+        <div class="container clear">
+            <div class="zgs_cl_left">
+                <div class="zgs_select_type">
+                    <input type="hidden" id="new_order_Info" value="{'1':[],'2':[]}">
+                    <h1 class="zgs_meitu_nav">
+        <ul>
+            <li class="has_arrow">
+                <a href="/">
+                    石家庄装修
+                </a>
+                <span class="nav_arrow_right"></span>
+            </li>
+            <li class="has_arrow">
+                <a href="/company/">
+                    石家庄装修公司
+                </a>
+                <span class="nav_arrow_right"></span>
+            </li>
+            <li class="nav_type_select">
+                                <a href="/company/" rel="nofollow">
+                    <em>3万以下</em>
+                    <span class="nav_close"></span>
+                </a>
+            </li>
+        </ul>
+        <em class="xgt_meitu_nav_total">
+            共 <b>94</b> 结果
+        </em>
+        <a href="javascript:;" target="_blank" class="lnk_r" title="石家庄装修公司排名" >石家庄装修公司哪家强？</a>
+    </h1>
+                    <dl class="zgs_st_dl">
+                        <dt>类型</dt>
+                        <!--类型-->
+                        <dd>
+                            <a href="/company/?price=1&type=ptzz" rel="nofollow">普通住宅</a>
+                            <a href="/company/?price=1&type=xiaohuxing" rel="nofollow">小户型</a>
+                            <a href="/company/?price=1&type=bieshu" rel="nofollow">别墅</a>
+                            <a href="/company/?price=1&type=jubu" rel="nofollow">局部装修</a>
+                            <a href="/company/?price=1&type=ktv" rel="nofollow">ktv</a>
+                            <a href="/company/?price=1&type=shangpu" rel="nofollow">商铺</a>
+                            <a href="/company/?price=1&type=canting" rel="nofollow">餐厅/酒楼</a>
+                            <a href="/company/?price=1&type=meifa" rel="nofollow">美容/美发</a>
+                            <a href="/company/?price=1&type=yule" rel="nofollow">娱乐场所</a>
+                            <a href="/company/?price=1&type=jiudian" rel="nofollow">酒店</a>
+                            <a href="/company/?price=1&type=zhanting" rel="nofollow">展厅</a>
+                            <a href="/company/?price=1&type=bangongshi" rel="nofollow">办公室</a>
+                            <a href="/company/?price=1&type=changfang" rel="nofollow">厂房</a>
+                            <a href="/company/?price=1&type=xuexiao" rel="nofollow">学校</a>
+                            <a href="/company/?price=1&type=yiyuan" rel="nofollow">医院</a>
+                            <a href="/company/?price=1&type=zhuanmaidian" rel="nofollow">专卖店</a>
+                            <a href="/company/?price=1&type=jiuba" rel="nofollow">酒吧</a>
+                            <a href="/company/?price=1&type=chaoshi" rel="nofollow">超市/商场</a>
+                            <a href="/company/?price=1&type=qita" rel="nofollow">其他</a>
+                            <a href="/company/?price=1&type=pingceng" rel="nofollow">平层</a>
+                            <a href="/company/?price=1&type=gelou" rel="nofollow">阁楼</a>
+                            <a href="/company/?price=1&type=zijianfang" rel="nofollow">自建房</a>
+                            <a href="/company/?price=1&type=fushi" rel="nofollow">复式</a>
+                        </dd>
+                    </dl>
+                    <dl class="zgs_st_dl">
+                        <dt>服务区域</dt>
+                        <!--服务区域-->
+                        <dd>
+                            <a href="/company/?price=1&service=xingtangxian" rel="nofollow">行唐县</a>
+                            <a href="/company/?price=1&service=qiaoxiqu" rel="nofollow">桥西区</a>
+                            <a href="/company/?price=1&service=changanqu1" rel="nofollow">长安区</a>
+                            <a href="/company/?price=1&service=jingxingkuangqu" rel="nofollow">井陉矿区</a>
+                            <a href="/company/?price=1&service=qiaodongqu" rel="nofollow">桥东区</a>
+                            <a href="/company/?price=1&service=xinhuaqu" rel="nofollow">新华区</a>
+                            <a href="/company/?price=1&service=yuhuaqu" rel="nofollow">裕华区</a>
+                            <a href="/company/?price=1&service=xinjishi" rel="nofollow">辛集市</a>
+                            <a href="/company/?price=1&service=gaochengshi" rel="nofollow">藁城市</a>
+                            <a href="/company/?price=1&service=jinzhoushi" rel="nofollow">晋州市</a>
+                            <a href="/company/?price=1&service=xinleshi" rel="nofollow">新乐市</a>
+                            <a href="/company/?price=1&service=luquanshi" rel="nofollow">鹿泉市</a>
+                            <a href="/company/?price=1&service=pingshanxian1" rel="nofollow">平山县</a>
+                            <a href="/company/?price=1&service=jingxingxian" rel="nofollow">井陉县</a>
+                            <a href="/company/?price=1&service=luanchengxian" rel="nofollow">栾城县</a>
+                            <a href="/company/?price=1&service=zhengdingxian" rel="nofollow">正定县</a>
+                            <a href="/company/?price=1&service=lingshouxian" rel="nofollow">灵寿县</a>
+                            <a href="/company/?price=1&service=gaoyixian" rel="nofollow">高邑县</a>
+                            <a href="/company/?price=1&service=zhaoxian" rel="nofollow">赵县</a>
+                            <a href="/company/?price=1&service=zanhuangxian" rel="nofollow">赞皇县</a>
+                            <a href="/company/?price=1&service=shenzexian" rel="nofollow">深泽县</a>
+                            <a href="/company/?price=1&service=wujixian" rel="nofollow">无极县</a>
+                            <a href="/company/?price=1&service=yuanshixian" rel="nofollow">元氏县</a>
+                            <a href="/company/?price=1&service=jingjijishukaifaqu" rel="nofollow">经济技术开发区</a>
+                            <a href="/company/?price=1&service=jinchuankaifaqu" rel="nofollow">金川开发区</a>
+                        </dd>
+                    </dl>
+                    <dl class="zgs_st_dl" v-show="more_s">
+                        <dt>承接价位</dt>
+                        <!--价位-->
+                        <dd>
+                            <a href="/company/?price=1" rel="nofollow" class="on">3万以下</a>
+                            <a href="/company/?price=2" rel="nofollow">3-5万</a>
+                            <a href="/company/?price=3" rel="nofollow">5-8万</a>
+                            <a href="/company/?price=4" rel="nofollow">8-12万</a>
+                            <a href="/company/?price=5" rel="nofollow">12-18万</a>
+                            <a href="/company/?price=6" rel="nofollow">18-30万</a>
+                            <a href="/company/?price=7" rel="nofollow">30-100万</a>
+                            <a href="/company/?price=8" rel="nofollow">100万以上</a>
+                        </dd>
+                    </dl>
+                    <dl class="zgs_st_dl" v-show="more_s">
+                        <dt>专长风格</dt>
+                        <!--风格-->
+                        <dd>
+                            <a href="/company/?price=1&style=1" rel="nofollow">简约</a>
+                            <a href="/company/?price=1&style=2" rel="nofollow">现代</a>
+                            <a href="/company/?price=1&style=3" rel="nofollow">中式</a>
+                            <a href="/company/?price=1&style=4" rel="nofollow">欧式</a>
+                            <a href="/company/?price=1&style=5" rel="nofollow">美式</a>
+                            <a href="/company/?price=1&style=6" rel="nofollow">田园</a>
+                            <a href="/company/?price=1&style=7" rel="nofollow">新古典</a>
+                            <a href="/company/?price=1&style=8" rel="nofollow">混搭</a>
+                            <a href="/company/?price=1&style=9" rel="nofollow">地中海</a>
+                            <a href="/company/?price=1&style=10" rel="nofollow">东南亚</a>
+                            <a href="/company/?price=1&style=11" rel="nofollow">日式</a>
+                            <a href="/company/?price=1&style=12" rel="nofollow">宜家</a>
+                            <a href="/company/?price=1&style=13" rel="nofollow">北欧</a>
+                            <a href="/company/?price=1&style=14" rel="nofollow">简欧</a>
+                        </dd>
+                    </dl>
+                    <dl class="zgs_st_dl" v-show="more_s">
+                        <dt>所在区域</dt>
+                        <!--所在区域-->
+                        <dd>
+                            <a href="/company/?price=1&area=xingtangxian" title="行唐县装修公司" rel="nofollow">行唐县</a>
+                            <a href="/company/?price=1&area=qiaoxiqu" title="桥西区装修公司" rel="nofollow">桥西区</a>
+                            <a href="/company/?price=1&area=changanqu1" title="长安区装修公司" rel="nofollow">长安区</a>
+                            <a href="/company/?price=1&area=jingxingkuangqu" title="井陉矿区装修公司" rel="nofollow">井陉矿区</a>
+                            <a href="/company/?price=1&area=qiaodongqu" title="桥东区装修公司" rel="nofollow">桥东区</a>
+                            <a href="/company/?price=1&area=xinhuaqu" title="新华区装修公司" rel="nofollow">新华区</a>
+                            <a href="/company/?price=1&area=yuhuaqu" title="裕华区装修公司" rel="nofollow">裕华区</a>
+                            <a href="/company/?price=1&area=xinjishi" title="辛集市装修公司" rel="nofollow">辛集市</a>
+                            <a href="/company/?price=1&area=gaochengshi" title="藁城市装修公司" rel="nofollow">藁城市</a>
+                            <a href="/company/?price=1&area=jinzhoushi" title="晋州市装修公司" rel="nofollow">晋州市</a>
+                            <a href="/company/?price=1&area=xinleshi" title="新乐市装修公司" rel="nofollow">新乐市</a>
+                            <a href="/company/?price=1&area=luquanshi" title="鹿泉市装修公司" rel="nofollow">鹿泉市</a>
+                            <a href="/company/?price=1&area=pingshanxian1" title="平山县装修公司" rel="nofollow">平山县</a>
+                            <a href="/company/?price=1&area=jingxingxian" title="井陉县装修公司" rel="nofollow">井陉县</a>
+                            <a href="/company/?price=1&area=luanchengxian" title="栾城县装修公司" rel="nofollow">栾城县</a>
+                            <a href="/company/?price=1&area=zhengdingxian" title="正定县装修公司" rel="nofollow">正定县</a>
+                            <a href="/company/?price=1&area=lingshouxian" title="灵寿县装修公司" rel="nofollow">灵寿县</a>
+                            <a href="/company/?price=1&area=gaoyixian" title="高邑县装修公司" rel="nofollow">高邑县</a>
+                            <a href="/company/?price=1&area=zhaoxian" title="赵县装修公司" rel="nofollow">赵县</a>
+                            <a href="/company/?price=1&area=zanhuangxian" title="赞皇县装修公司" rel="nofollow">赞皇县</a>
+                            <a href="/company/?price=1&area=shenzexian" title="深泽县装修公司" rel="nofollow">深泽县</a>
+                            <a href="/company/?price=1&area=wujixian" title="无极县装修公司" rel="nofollow">无极县</a>
+                            <a href="/company/?price=1&area=yuanshixian" title="元氏县装修公司" rel="nofollow">元氏县</a>
+                            <a href="/company/?price=1&area=jingjijishukaifaqu" title="经济技术开发区装修公司" rel="nofollow">经济技术开发区</a>
+                            <a href="/company/?price=1&area=jinchuankaifaqu" title="金川开发区装修公司" rel="nofollow">金川开发区</a>
+                        </dd>
+                    </dl>
+                    <p class="more_type" v-show="!more_s"><a href="javascript:void(0)" @click="more_s_z">更多<em></em></a></p>
+                    <p class="more_type" v-show="more_s"><a href="javascript:void(0)" @click="more_s_z">收缩<em class="lowrow"></em></a></p>
+                </div>
+                <div class="zgs_rank company__rank">
+                    <ul>
+                        <li class="zr_hot on">
+                            <a href="/company/?price=1" rel="nofollow">
+                <span class="sort__text">综合<i class="icon-sort"></i></span>
+            </a>
+                        </li>
+                        <li class="has_arrow ">
+                            <a href="/company/?price=1&order=nCase" rel="nofollow">
+                <em class="sort__text">案例<i class="icon-sort"></i></em>
+                <!--<span ></span>-->
+            </a>
+                        </li>
+                        <li class="has_arrow ">
+                            <a href="/company/?price=1&order=nGd" rel="nofollow">
+                <em class="sort__text">工地<i class="icon-sort"></i></em>
+                <!--<span ></span>-->
+            </a>
+                        </li>
+                        <li class="has_arrow ">
+                            <a href="/company/?price=1&order=nCredit" rel="nofollow">
+                <em class="sort__text">信用<i class="icon-sort"></i></em>
+                <!--<span ></span>-->
+            </a>
+                        </li>
+                    </ul>
+                    <div class="fr">
+                    </div>
+                </div>
+                <!-- aListAd-->
+                <div class="default__company__list  ">
+                    <ul class="company-data-list">
+                        <li class="company-data " companyid="9014925" ptag="cmp_9014925____0_1_">
+                            <a href="/zs/9014925/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_9014925.jpg" alt="石家庄宝投装修装饰有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            石家庄宝投装修装饰有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">257</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">222</span>
+                                    </div>
+                                    <div class="company__activity company__activity__special">
+                                        <p><i class="icon__promotion"></i>全包套餐：原价639元/㎡，现569元/㎡，直降70元/㎡。</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>171-3322-8441</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180914_d97a9d1650def9ef8936oexrmqdlgzkz_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_fb50b6b86543fd11c1713xmzbtgm2xql_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_3d8c6776aea9fd07db74kfyk3bn0dipb_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_6f0d5d6d0208bbd01e9a8er35249yscp_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="8765090" ptag="cmp_8765090____1_1_">
+                            <a href="/zs/8765090/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_8765090.jpg" alt="河北栋庭装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北栋庭装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">840</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">843</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__coupon"></i>一线主材298元/㎡，免费量房，免费设计</p>
+                                        <p><i class="icon__promotion"></i>【先装修，后付款】，全屋整包666元/m²，送定制家居，送基础水电！</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>156-3308-5514</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180914_7d6c6a254ac490d8d969nsiehhzo69nh_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_49d955b1ce934f6727f6zvxwxtxaegpu_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_ffa8309e430c7bb9a56ajw5ienxfinh9_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_df5dc46cfc895f751ac9uv3ilmug7996_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="225554" ptag="cmp_225554____2_1_">
+                            <a href="/zs/225554/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_225554.jpg" alt="石家庄润之装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            石家庄润之装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">941</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">982</span>
+                                    </div>
+                                    <div class="company__data_type">
+                                        <span style="color: #FF5A00;border-color: #FF5A00;border-color: rgba(255,90,0,0.3)  ">先施工后付款</span>
+                                        <span style="color: #0CB46A;border-color: #0CB46A;border-color: rgba(12,180,106,0.3)  ">土巴兔质检</span>
+                                        <span style="color: #15AF10;border-color: #15AF10;border-color: rgba(21,175,160,0.3)  ">装修分期</span>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>171-3322-8440</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20100604_2dcb32284c9ded25b3eaHqbejbjiQpjG_230x160M.jpg" class="case-img">
+                                        <img src="images/20171123_171182f1d350c491036165andgwbdsb1_230x160M.jpg" class="case-img">
+                                        <img src="images/20171122_a31c210338c191cbb56bbcxmx9ztu4pv_230x160M.jpg" class="case-img">
+                                        <img src="images/20171110_7f1316520054cd108657y85df9u1d8hq_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="9019736" ptag="cmp_9019736____3_1_">
+                            <a href="/zs/9019736/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_9019736.jpg" alt="石家庄煦尚装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            石家庄煦尚装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">113</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">111</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__coupon"></i>旺季促销，低价先行 签单满10000减1000 满20000减2000</p>
+                                        <p><i class="icon__promotion"></i>电话预约量房即可享受精美礼品一份，同时享受网单优惠政策</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>130-8184-8921</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180912_866acf098291bbe98654rn8cxkn6dj9o_230x160M.jpg" class="case-img">
+                                        <img src="images/20180912_e8a696d5fd18d16ca220rexl85goqp27_230x160M.jpg" class="case-img">
+                                        <img src="images/20180907_0aea52dda581f70dcef39zxe4giq4iys_230x160M.jpg" class="case-img">
+                                        <img src="images/20180907_47feff15741bfd71ec64a7wxax5iporv_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="8985794" ptag="cmp_8985794____4_1_">
+                            <a href="/zs/8985794/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_8985794.jpg" alt="石家庄郡豪装饰设计工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            石家庄郡豪装饰设计工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">154</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">158</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__coupon"></i>领卷可获1000元装修款+免费设计</p>
+                                        <p><i class="icon__coupon"></i>《先装修后付款》出租房两室大包28800，三室大包35800</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>166-3110-2647</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180910_63be0aad26904fb6920cijuuwswg0qkm_230x160M.jpg" class="case-img">
+                                        <img src="images/20180907_d6fc915110673d1f4493hbykzt4rxulk_230x160M.jpg" class="case-img">
+                                        <img src="images/20180905_96f8290e8b9f73ae84f4vd08srkme70j_230x160M.jpg" class="case-img">
+                                        <img src="images/20180903_c991f6d3af0897a84b17lkxvz4os5a9y_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="8783535" ptag="cmp_8783535____5_1_">
+                            <a href="/zs/8783535/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_8783535.jpg" alt="河北家年华装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北家年华装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">503</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">480</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__coupon"></i>土巴兔认证优质装企，免费量房，免费设计，免费出报价，效果图。</p>
+                                        <p><i class="icon__promotion"></i>全城0零润征集5套作品样板间，免费设计，详情进店咨询。</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>171-5087-6530</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180914_1c15e11699cb3806e79dte60g4jult5a_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_19921a434cf960093a55hoomvu14m81h_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_d4bc60e99016c1c17b1ehz4eix2ovefw_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_14541248a7faa6642bedobaks9sqpq29_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="8826410" ptag="cmp_8826410____6_1_">
+                            <a href="/zs/8826410/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_8826410.jpg" alt="河北扬梦装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北扬梦装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">169</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">163</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__promotion"></i>先装修后付费，扬梦质量保证，不满意砸掉重新装</p>
+                                        <p><i class="icon__coupon"></i>满10000减1000 出图当天签合同再减1000
+                                        </p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>156-9011-6141</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180905_347c5f1f6336e2790feeojujszsd9j8y_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_c6452ae9f07c73a0bed9zvuge2448tsu_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_b0c80583fa416086a0a7dysusoksru0f_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_36aa7ccc9c6d6359f44ebn5ffiq8bs2m_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="7980540" ptag="cmp_7980540____7_1_">
+                            <a href="/zs/7980540/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_7980540.jpg" alt="河北朗万装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北朗万装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">82</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">94</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__promotion"></i>活动期间卫生间贴砖工艺免费升级，全部采用墙压地工艺</p>
+                                        <p><i class="icon__promotion"></i>活动期间签定合同即赠送卫生间及阳台防水（施工标准执行国标）</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>156-9030-6840</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180815_f240072749ab200456f9fjopf8vm0b0o_230x160M.jpg" class="case-img">
+                                        <img src="images/20180802_6bf31810da941e6c61b59f6w4r72w5av_230x160M.jpg" class="case-img">
+                                        <img src="images/20180802_820e9b8c5a2533f60d532xhbeb3ptuxh_230x160M.jpg" class="case-img">
+                                        <img src="images/20180801_cb15c19986dab6a2656fqp2plerttd85_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="7255503" ptag="cmp_7255503____8_1_">
+                            <a href="/zs/7255503/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_7255503.jpg" alt="石家庄三林装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            石家庄三林装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">585</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">611</span>
+                                    </div>
+                                    <div class="company__data_type">
+                                        <span style="color: #FF5A00;border-color: #FF5A00;border-color: rgba(255,90,0,0.3)  ">先施工后付款</span>
+                                        <span style="color: #0CB46A;border-color: #0CB46A;border-color: rgba(12,180,106,0.3)  ">土巴兔质检</span>
+                                        <span style="color: #15AF10;border-color: #15AF10;border-color: rgba(21,175,160,0.3)  ">装修分期</span>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>171-3322-8446</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180914_73b7fc3753b92ab902ba8qvi08ir8ogq_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_2a2f49beb43f0f3dc8e813jcu958jktt_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_4cc95d1e9a26a08d8932knk8dwjfiwn1_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_d5991753ad3fd967d027327i1jgri4gi_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="7712099" ptag="cmp_7712099____9_1_">
+                            <a href="/zs/7712099/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_7712099.jpg" alt="石家庄高标建筑装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            石家庄高标建筑装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">152</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">146</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__promotion"></i>网上凡打电话预约，进店可领取装修大礼包一件。</p>
+                                        <p><i class="icon__coupon"></i>凡在活动期间打电话咨询进店可拿800—1300元优惠券</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>156-1365-1011</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180905_4454c5b539130ac27371p17605x6yfu1_230x160M.jpg" class="case-img">
+                                        <img src="images/20180905_3b9798dbc2cf52e93d6eqld20wmrv05n_230x160M.jpg" class="case-img">
+                                        <img src="images/20180905_044d868c14c1d91d2b67ai5raylh87bd_230x160M.jpg" class="case-img">
+                                        <img src="images/20180822_a465cf6190a247d7fb83fq8rv9n3eyn0_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="8837514" ptag="cmp_8837514____10_1_">
+                            <a href="/zs/8837514/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_8837514.jpg" alt="石家庄金澜装饰工程有限责任公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            石家庄金澜装饰工程有限责任公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">300</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">275</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__promotion"></i>免费量房，免费全案设计！保证0增项！</p>
+                                        <p><i class="icon__promotion"></i>专业空间改造，让家扩大20平米！设计生活，设计家，我们在这儿等你！</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>156-9011-7144</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180912_28fec83b96902450766e9iitqi6u00dc_230x160M.jpg" class="case-img">
+                                        <img src="images/20180912_2ecf336ffd7f4ce245d1exlzcifg9y2h_230x160M.jpg" class="case-img">
+                                        <img src="images/20180912_e549fc8393ba72f2b086sfusm8fhk9en_230x160M.jpg" class="case-img">
+                                        <img src="images/20180912_2d56e1437d6c430b24aeoib95ksym21v_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="9009444" ptag="cmp_9009444____11_1_">
+                            <a href="/zs/9009444/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_9009444.jpg" alt="河北韵海装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北韵海装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">40</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">42</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__promotion"></i>免费量房，免费报价，免费平面方案沟通。</p>
+                                        <p><i class="icon__coupon"></i>前10名享受施工管理费全免。</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>171-5087-9714</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180905_b5baf1ebaa8eefb88941w11smdhho1m4_230x160M.jpg" class="case-img">
+                                        <img src="images/20180905_4dfb7d07133dbc69b3f1j1r10ldiomdt_230x160M.jpg" class="case-img">
+                                        <img src="images/20180901_e616784a5cc9715b666fyccsx75b8jrv_230x160M.jpg" class="case-img">
+                                        <img src="images/20180901_71da174ae16821548e2dl2zagyypmgiq_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="8993875" ptag="cmp_8993875____12_1_">
+                            <a href="/zs/8993875/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_8993875.jpg" alt="河北子凡建筑装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北子凡建筑装饰工程有限公司</span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">25</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">26</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__coupon"></i>活动期间客户量房诚意金500元抵2000元</p>
+                                        <p><i class="icon__promotion"></i>10-15万赠送厨房定制橱柜全套</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>186-3210-4920</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180823_9895646b7d718ced35e6etseo5k5u19m_230x160M.png" class="case-img">
+                                        <img src="images/20180822_05a4767cde0bc2e900dfoiktsukxj9hb_230x160M.png" class="case-img">
+                                        <img src="images/20180821_32ff5990a2c8719cd8c0782xt3ivz0rk_230x160M.jpg" class="case-img">
+                                        <img src="images/20180817_4d1bec00bd742bcda922p943d3n8ydlv_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="9006811" ptag="cmp_9006811____13_1_">
+                            <a href="/zs/9006811/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_9006811.jpg" alt="河北青森建筑装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北青森建筑装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">70</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">74</span>
+                                    </div>
+                                    <div class="company__data_type">
+                                        <span style="color: #FF5A00;border-color: #FF5A00;border-color: rgba(255,90,0,0.3)  ">先施工后付款</span>
+                                        <span style="color: #0CB46A;border-color: #0CB46A;border-color: rgba(12,180,106,0.3)  ">土巴兔质检</span>
+                                        <span style="color: #15AF10;border-color: #15AF10;border-color: rgba(21,175,160,0.3)  ">装修分期</span>
+                                    </div>
+                                    <div class="company__activity">
+                                        <p><i class="icon__promotion"></i>家装婚房送3D婚纱照一张 家装送音乐挂画一副
+                                        </p>
+                                        <p><i class="icon__coupon"></i>活动期间交定金500元抵2000元，全场通用.</p>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>156-3217-5435</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180831_143384abc3e4d495bc3bscnwybd4vs2x_230x160M.jpg" class="case-img">
+                                        <img src="images/20180830_a34f78bcdc731202b0a8yatk30axk9d4_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_0e8ec89b99af89d330e3f6ljd2fug7bg_230x160M.jpg" class="case-img">
+                                        <img src="images/20180914_b8b20d7c60b08194c7f1lr4epf80cg8g_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="company-data " companyid="8752295" ptag="cmp_8752295____14_1_">
+                            <a href="/zs/8752295/" target="_blank">
+                                <div class="company__logo" rel="nofollow" style="position: relative;">
+                                    <img src="images/headphoto_8752295.jpg" alt="河北亿彬装饰工程有限公司 - 石家庄装修公司" />
+                                </div>
+                                <div class="company__data">
+                                    <p class="company__name">
+                                        <span class="name">
+                            河北亿彬装饰工程有限公司                        </span>
+                                        <!-- 活动图片1 -->
+                                    </p>
+                                    <div class="company__data__show">
+                                        <span>设计案例：</span>
+                                        <span class="number">294</span>
+                                        <span>装修工地：</span>
+                                        <span class="number">298</span>
+                                    </div>
+                                    <p class="company__phone"><i class="icon__phone"></i>176-0316-1892</p>
+                                    <!-- 当装企案例数不满4张时，4端列表都不显示图片，其他字段展现不变。 -->
+                                    <div class="company-case">
+                                        <img src="images/20180810_7ecfd3bccd478ca6742cmaktuwmlq41k_230x160M.jpg" class="case-img">
+                                        <img src="images/20180823_716fbba24e8623deeecb1esl1h2prm1n_230x160M.jpg" class="case-img">
+                                        <img src="images/20180823_f30babd48cdb8177b5b4fqfto9pp83u1_230x160M.jpg" class="case-img">
+                                        <img src="images/20180823_aa4eae868629ac9e59728tccfhz7masf_230x160M.jpg" class="case-img">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pages"><em>共有<b>94</b></em><strong>1</strong><a href="/company/?price=1&amp;page=2">2</a><a href="/company/?price=1&amp;page=3">3</a><a href="/company/?price=1&amp;page=4">4</a><a href="/company/?price=1&amp;page=5">5</a><i>...</i> <a href="/company/?price=1&amp;page=7" class="last">7</a><a href="/company/?price=1&amp;page=2" class="next" id=nextpageid>下一页<b></b></a></div>
+            </div>
+            <div class="zgs_cl_right">
+                <div class="zgs_company_rank">
+                    <div class="clear rank_head">
+                        <div class="head_left"></div>
+                        <div class="head_center">本月推荐</div>
+                        <div class="head_right"></div>
+                    </div>
+                    <ul class="rank_center">
+                    </ul>
+                </div>
+                <link rel="stylesheet" type="text/css" href="css/zxbj_widget_new.css">
+                <div class="widget-frame">
+                    <div class="new-container">
+                        <div class="zxbj-calc-wrap zxbj-yqbj">
+                            <input type="hidden" value="" name="ptag">
+                            <div class="zxbj-calc-header">
+                                <div class="zxbj-calc-budget">
+                                    <div class="num-ge"></div>
+                                    <div class="num-shi"></div>
+                                    <div class="num-bai"></div>
+                                    <div class="num-qian"></div>
+                                    <div class="num-wan"></div>
+                                    <div class="num-shiwan"></div>
+                                </div>
+                            </div>
+                            <div class="zxbj-calc-con" style="display:block">
+                                <div class="element clearfix">
+                                    <select class="province" name="User_Shen" id="zxbjcalcUser_Shen" onchange="changeProvince('zxbjcalcUser_Shen','zxbjcalcUser_City','zxbjcalcUser_Town');">
+                                        <option value="">省/市</option>
+                                    </select>
+                                    <select class="city" name="User_City" id="zxbjcalcUser_City" onchange="changeTown('zxbjcalcUser_Shen','zxbjcalcUser_City','zxbjcalcUser_Town');">
+                                        <option value="">市/地区</option>
+                                    </select>
+                                    <div style="display:none;">
+                                        <select class="langSelect" id="zxbjcalcUser_Town" name="User_Town">
+                                            <option>县/区</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="element clearfix">
+                                    <input class="text area" type="text" name="square" id="bj_square">
+                                    <b>输入您的房屋面积</b>
+                                    <i class="unit">m²</i>
+                                </div>
+                                <div class="element clearfix szxbj-type">
+                                    <select name="shi" id="szxbj_shi" class="line-shi">
+                                        <option value="1">1室</option>
+                                        <option value="2">2室</option>
+                                        <option value="3">3室</option>
+                                        <option value="4">4室</option>
+                                        <option value="5">5室</option>
+                                        <option value="6">6室</option>
+                                    </select>
+                                    <select name="ting" id="szxbj_ting" class="line-ting">
+                                        <option value="1">1厅</option>
+                                        <option value="2">2厅</option>
+                                        <option value="3">3厅</option>
+                                        <option value="4">4厅</option>
+                                        <option value="5">5厅</option>
+                                        <option value="6">6厅</option>
+                                    </select>
+                                    <select name="chu" id="szxbj_chu" class="second-line line-chu">
+                                        <option value="1">1厨</option>
+                                        <option value="2">2厨</option>
+                                        <option value="3">3厨</option>
+                                    </select>
+                                    <select name="wei" id="szxbj_wei" class="second-line line-wei">
+                                        <option value="1">1卫</option>
+                                        <option value="2">2卫</option>
+                                        <option value="3">3卫</option>
+                                        <option value="4">4卫</option>
+                                        <option value="5">5卫</option>
+                                        <option value="6">6卫</option>
+                                    </select>
+                                    <select name="yangtai" id="szxbj_yangtai" class="second-line line-yangtai">
+                                        <option value="1">1阳台</option>
+                                        <option value="2">2阳台</option>
+                                        <option value="3">3阳台</option>
+                                        <option value="4">4阳台</option>
+                                        <option value="5">5阳台</option>
+                                        <option value="6">6阳台</option>
+                                    </select>
+                                </div>
+                                <div class="element counter-phone clearfix">
+                                    <input class="text" type="text" name="chkPhone">
+                                    <b>输入号码报价结果将发送到您的手机</b>
+                                </div>
+                                <input type="hidden" name="dangci" value="jianzhuang">
+                                <div class="submit-btn-box">
+                                    <a class="submit-btn expose-stream" href="javascript:void(0);" searchtage="">
+                        立即计算
+                    </a>
+                                </div>
+                            </div>
+                            <div class="zxbj-clac-yqbj" style="display:none">
+                                <p class="glide-text">
+                                    您家的装修预算为
+                                </p>
+                                <p class="glide-unit">
+                                    <span id="yqbj_total">?</span> 万元
+                                </p>
+                                <div>
+                                    <ul class="glide-yqbj">
+                                        <li>材料费：<strong id="materials_cost">?</strong><span>元</span>
+                                            <li>人工费：<strong id="labor_cost">?</strong><span>元</span>
+                                                <li>设计费：<strong id="design_fees">?</strong><span>元</span>
+                                                    <span id="old_design_fees" class="old_fees" style="display:none;">
+                                <span></span>
+                                                    <em>元</em>
+                                                    </span>
+                                                </li>
+                                                <li>质检费：<strong id="quality_fees">?</strong><span>元</span>
+                                                    <span id="old_quality_fees" class="old_fees" style="display:none;">
+                                <span></span>
+                                                    <em>元</em>
+                                                    </span>
+                                                </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="zxbj-calc-result" style="display:none">
+                                <p class="calc-explain">* 本价格为毛坯房半包估算价格（不含水电报价），旧房价格由实际工程量决定。</p>
+                                <p class="calc-call holiday-text">* 稍后装修管家将致电您，为您提供免费装修咨询服务。</p>
+                            </div>
+                            <div class="zxbj-calc-hotad">
+                                <a href="javascript:void(0);"><img src="images/index" alt=""></a>
+                                <p>广告</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript" src="js/zxbj_widget_new.js"></script>
+                <script>
+                (function() {
+                    if (location.href.indexOf('company/') > -1) {
+
+                        jq('.widget-frame').css('margin-top', '20px');
+                        jq('.zxbj-calc-con .text').css('*width', '213px');
+                    };
+                    if (location.href.indexOf('scene') > -1 || location.href.indexOf('zwj') > -1) {
+                        jq('.widget-frame').css('margin-bottom', '20px');
+                    }
+
+                })()
+                </script>
+                <div class="zgs_clr_fc">
+                    <span class="zcf_title">在土巴兔找装修公司价格实惠；<br>施工质量严格监管，不低于行业标准。</span>
+                    <ul>
+                        <li>
+                            <span class="zcf_kxy"></span>
+                            <b>不懂装修注意事项？</b>
+                            <em>土巴兔300名家装顾问.免费一对一帮你解疑惑。</em>
+                        </li>
+                        <li>
+                            <span class="zcf_bfa"></span>
+                            <b>不懂验房和装修验收？</b>
+                            <em>200名专业质检免费帮你做3次验收。</em>
+                        </li>
+                        <li>
+                            <span class="zcf_bbj"></span>
+                            <b>怕装修猫腻、偷工减料？</b>
+                            <em>"五星服务"、"四标规范"免费帮你做把控。</em>
+                        </li>
+                        <li>
+                            <span class="zcf_bbz"></span>
+                            <b>怕给了钱，质量没保障？</b>
+                            <em>"装修保"免费帮你保障，满意了才付装修款。</em>
+                        </li>
+                    </ul>
+                    <input type="button" value="享受省心的装修服务" class="zcz_btn" onclick="companyTender(this);">
+                </div>
+                <div class="zgs_clr_newOrder">
+                    <h2>石家庄装修公司最新签单</h2>
+                    <dl>
+                        <dt>
+                            <span class="zcno_one">业主</span>
+                            <span class="zcno_two">小区名称</span>
+                            <span class="zcno_three">公司名称</span>
+                        </dt>
+                    </dl>
+                    <div class="dlwrap">
+                        <dl>
+                            <dd>
+                                <span class="zcno_one" title="孙先生">孙先生</span>
+                                <span class="zcno_two" title="格调春天">格调春天</span>
+                                <a class="zcno_three" href="/zs/8423309/" target='_blank' title="北京泰峰伟业装饰设计有限公司石家庄分公司"> 泰峰伟业装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="张(先生)">张(先生)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/7255503/" target='_blank' title="石家庄三林装饰工程有限公司"> 三林装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="王鹏(先生)">王鹏(先生)</span>
+                                <span class="zcno_two" title="华域城">华域城</span>
+                                <a class="zcno_three" href="/zs/8506713/" target='_blank' title="河北清都山水装饰有限公司"> 清都山水</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="赵(女士)">赵(女士)</span>
+                                <span class="zcno_two" title="盛世御城">盛世御城</span>
+                                <a class="zcno_three" href="/zs/8016019/" target='_blank' title="石家庄茂佳装饰工程有限公司"> 茂佳装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="卢(女士)">卢(女士)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/8507755/" target='_blank' title="河北吉喆建筑装饰工程有限公司"> 河北吉喆建筑</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="王先生">王先生</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/225554/" target='_blank' title="石家庄润之装饰工程有限公司"> 润之装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="陈(先生)">陈(先生)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/225554/" target='_blank' title="石家庄润之装饰工程有限公司"> 润之装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="刘(先生)">刘(先生)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/7682914/" target='_blank' title="石家庄典藏装饰工程有限公司"> 典藏装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="李先生(先生)">李先生(先生)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/8291899/" target='_blank' title="石家庄创宇装饰工程有限公司"> 创宇装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="鲍(先生)">鲍(先生)</span>
+                                <span class="zcno_two" title="北城国际">北城国际</span>
+                                <a class="zcno_three" href="/zs/7255503/" target='_blank' title="石家庄三林装饰工程有限公司"> 三林装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="高(女士)">高(女士)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/225554/" target='_blank' title="石家庄润之装饰工程有限公司"> 润之装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="陈(女士)">陈(女士)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/8291899/" target='_blank' title="石家庄创宇装饰工程有限公司"> 创宇装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="王(女士)">王(女士)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/8506713/" target='_blank' title="河北清都山水装饰有限公司"> 清都山水</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="唐文娜">唐文娜</span>
+                                <span class="zcno_two" title="紫晶悦城">紫晶悦城</span>
+                                <a class="zcno_three" href="/zs/7255503/" target='_blank' title="石家庄三林装饰工程有限公司"> 三林装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="刘(先生)">刘(先生)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/225554/" target='_blank' title="石家庄润之装饰工程有限公司"> 润之装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="谢(先生)">谢(先生)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/225554/" target='_blank' title="石家庄润之装饰工程有限公司"> 润之装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="王(先生)">王(先生)</span>
+                                <span class="zcno_two" title="天苑小区">天苑小区</span>
+                                <a class="zcno_three" href="/zs/225554/" target='_blank' title="石家庄润之装饰工程有限公司"> 润之装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="王继敏">王继敏</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/8423309/" target='_blank' title="北京泰峰伟业装饰设计有限公司石家庄分公司"> 泰峰伟业装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="石(先生)">石(先生)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/2583144/" target='_blank' title="石家庄捷登装饰工程有限公司"> 捷登装饰</a>
+                            </dd>
+                            <dd>
+                                <span class="zcno_one" title="王(女士)">王(女士)</span>
+                                <span class="zcno_two" title=""></span>
+                                <a class="zcno_three" href="/zs/5596647/" target='_blank' title="石家庄百帝奇合装饰工程有限公司"> 百帝奇合装饰</a>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="zgs_clr_lm">
+                    <ul>
+                        <li>
+                            <dl>
+                                <dt>
+                                    <h2><a id="lw_zx_yezhu" href="/company/zxzt.php" target='_blank' hidefocus>石家庄装修报价</a></h2>
+                                </dt>
+                                <dd>
+                                    <a href="/company/z44938.html" target='_blank' title="">石家庄装修多少钱一平？上土巴兔，不花一分冤枉钱！</a>
+                                    <a href="/company/z3589.html" target='_blank' title="">卫生间装修要注意哪些地方</a>
+                                    <a href="/company/z3186.html" target='_blank' title="">石家庄装修公司哪家好</a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl>
+                                <dt>
+                                    <h2><a   href="/company/zxsj.php" target='_blank'  hidefocus>石家庄装修设计</a></h2>
+                                </dt>
+                                <dd>
+                                    <a href="/company/z15458.html" target='_blank' title="">造型超奇特 2016年最佳住宅设计奖</a>
+                                    <a href="/company/z13777.html" target='_blank' title="">2016家居趋势：家具新视角</a>
+                                    <a href="/company/z64027.html" target='_blank' title="">石家庄美甲店装修独特魅力所在</a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="border_none">
+                            <dl>
+                                <dt><a href="/company/zxsj.php?ttype=7" target='_blank' hidefocus>石家庄本地资讯</a></dt>
+                                <dd>
+                                    <a href="/company/z84636.html" target='_blank' title="">石家庄篷布厂家盘点</a>
+                                    <a href="/company/z84426.html" target='_blank' title="">石家庄衣柜定做厂家有哪些</a>
+                                    <a href="/company/z84318.html" target='_blank' title="">河北电线电缆厂哪家好</a>
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 装修公司 -->
+        <div class="footer">
+            <div class="footer-bottom">
+                <div class="footer-websites-box">
+                    <div class="content-wrapper">
+                        <div class="footer-city-list">
+                            <a rel="nofollow" href="http://wpa.qq.com/msgrd?V=1&amp;uin=895278840&amp;Site=-&amp;Menu=yes" target="_blank">友链合作></a><span @click="tab(1)" :class="{'on':tabs[1]}">友情链接</span> <span @click="tab(2)" :class="{'on':tabs[2]}">热门城市</span> <span @click="tab(3)" :class="{'on':tabs[3]}">附近城市</span> </div>
+                        <div class="footer-websites">
+                            <ul class="clearfix" v-show="tabs[1]">
+                                <li><a href="http://hebei.zjtcn.com/" target="_blank">
+                                河北造价信息网 </a></li>
+                                <li><a href="http://zu.zhijia.com/" target="_blank">
+                                石家庄租房 </a></li>
+                                <li><a href="http://sjz.273.cn/" target="_blank">
+                                石家庄二手车 </a></li>
+                                <li><a href="http://hbs.bidcenter.com.cn/" target="_blank">
+                                石家庄招标网 </a></li>
+                                <li><a href="http://sjz.zhaoshang800.com/" target="_blank">
+                                石家庄厂房出租 </a></li>
+                                <li><a href="http://sjz.zxzhijia.com/" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://sjz.wed114.cn/" target="_blank">
+                                石家庄婚纱摄影 </a></li>
+                                <li><a href="http://shijiazhuang.3dkezhan.com/" target="_blank">
+                                石家庄住宿 </a></li>
+                                <li><a href="http://shijiazhuang.365azw.com/" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://suzhou.okcis.cn/" target="_blank">
+                                苏州招标网 </a></li>
+                                <li><a href="http://sjz.dyrs.com.cn/" target="_blank">
+                                石家庄装修 </a></li>
+                                <li><a href="http://shijiazhuang.edeng.cn/" target="_blank">
+                                石家庄分类信息网 </a></li>
+                                <li><a href="http://shijiazhuang.zsezt.com" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://www.shushi100.com/shijiazhuang/" target="_blank">
+                                石家庄中央空调 </a></li>
+                                <li><a href="https://shijiazhuang.mmall.com/" target="_blank">
+                                石家庄装修公司 </a></li>
+                                <li><a href="http://bz.xafc.com/" target="_blank">
+                                亳州房产网 </a></li>
+                                <li><a href="http://shijiazhuang.99wed.com/" target="_blank">
+                                石家庄婚纱照 </a></li>
+                                <li><a href="http://shijiazhuang.zupuk.com" target="_blank">
+                                石家庄商铺网 </a></li>
+                                <li><a href="http://tangshan.taoche.com" target="_blank">
+                                唐山二手车 </a></li>
+                                <li><a href="/company/sjz/" target="_blank">
+                                石家庄装修公司 </a></li>
+                                <li><a href="http://sjz.tengfang.net/" target="_blank">
+                                石家庄房产 </a></li>
+                                <li><a href="http://www.sjzcsrj.cn/" target="_blank">
+                                石家庄家装公司 </a></li>
+                                <li><a href="http://sjz.fang.com/" target="_blank">
+                                石家庄房产网 </a></li>
+                                <li><a href="http://sjz.xtuan.com" target="_blank">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://sjz.zx123.cn/" target="_blank">
+                                石家庄装修 </a></li>
+                                <li><a href="http://shijiazhuang.66zhuang.com/" target="_blank">
+                                石家庄装修公司 </a></li>
+                                <li><a href="http://sj.cityhouse.cn/" target="_blank">
+                                石家庄房产网 </a></li>
+                                <li><a href="http://shijiazhuang.kuyiso.com/" target="_blank">
+                                石家庄分类信息 </a></li>
+                                <li><a href="http://shijiazhuang.huangye88.com/" target="_blank">
+                                石家庄信息网 </a></li>
+                                <li><a href="http://sjz.jiwu.com/" target="_blank">
+                                石家庄买房 </a></li>
+                                <li><a href="http://sjz.lieju.com/" target="_blank">
+                                石家庄分类信息网 </a></li>
+                                <li><a href=" http://sjz.ssjzw.com" target="_blank">
+                                石家庄兼职网  </a></li>
+                                <li><a href=" http://sjz.bqqm.com/" target="_blank">
+                                石家庄便民网  </a></li>
+                                <li><a href="https://www.glass.cn/sjz/" target="_blank">
+                                石家庄玻璃网 </a></li>
+                            </ul>
+                            <ul class="clearfix" v-show="tabs[2]">
+                                <li><a href="http://sz.to8to.com/" target="_blank">
+                                 深圳装修  </a></li>
+                                <li><a href="http://bj.to8to.com/" target="_blank">
+                                 北京装修  </a></li>
+                                <li><a href="http://sh.to8to.com/" target="_blank">
+                                 上海装修  </a></li>
+                                <li><a href="http://gz.to8to.com/" target="_blank">
+                                 广州装修  </a></li>
+                                <li><a href="http://cd.to8to.com/" target="_blank">
+                                 成都装修  </a></li>
+                                <li><a href="http://hz.to8to.com/" target="_blank">
+                                 杭州装修  </a></li>
+                                <li><a href="http://sy.to8to.com/" target="_blank">
+                                 沈阳装修  </a></li>
+                                <li><a href="http://cq.to8to.com/" target="_blank">
+                                 重庆装修  </a></li>
+                                <li><a href="http://tj.to8to.com/" target="_blank">
+                                 天津装修  </a></li>
+                                <li><a href="http://wh.to8to.com/" target="_blank">
+                                 武汉装修  </a></li>
+                            </ul>
+                            <ul class="clearfix" v-show="tabs[3]">
+                                <li><a href="http://sjz.to8to.com/" target="_blank" title="石家庄装修网">
+                                石家庄装修网 </a></li>
+                                <li><a href="http://ts.to8to.com/" target="_blank" title="唐山装修网">
+                                唐山装修网 </a></li>
+                                <li><a href="http://lf.to8to.com/" target="_blank" title="廊坊装修网">
+                                廊坊装修网 </a></li>
+                                <li><a href="http://qinhuangdao.to8to.com/" target="_blank" title="秦皇岛装修网">
+                                秦皇岛装修网 </a></li>
+                                <li><a href="http://baoding.to8to.com/" target="_blank" title="保定装修网">
+                                保定装修网 </a></li>
+                                <li><a href="http://handan.to8to.com/" target="_blank" title="邯郸装修网">
+                                邯郸装修网 </a></li>
+                                <li><a href="http://cangzhou.to8to.com/" target="_blank" title="沧州装修网">
+                                沧州装修网 </a></li>
+                                <li><a href="http://zhangjiakou.to8to.com/" target="_blank" title="张家口装修网">
+                                张家口装修网 </a></li>
+                                <li><a href="http://hengshui.to8to.com/" target="_blank" title="衡水装修网">
+                                衡水装修网 </a></li>
+                                <li><a href="http://xingtai.to8to.com/" target="_blank" title="邢台装修网">
+                                邢台装修网 </a></li>
+                                <li><a href="http://chengde.to8to.com/" target="_blank" title="承德装修网">
+                                承德装修网 </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-company-box">
+                    <div class="content-wrapper">
+                        <div class="footer-qr-code">
+                            <div class="footer-app-code">
+                                <img data-original="/qrcode_wx.jpg" src="images/qrcode_wx.jpg" class="lazy">
+                                <p>微信公众号</p>
+                            </div>
+                            <div class="footer-weixin-code">
+                                <img data-original="images/qrcode_app.jpg" src="images/qrcode_app.jpg" class="lazy">
+                                <p>土巴兔APP</p>
+                            </div>
+                        </div>
+                        <div class="footer-company-info">
+                            <ul>
+                                <li><a href="/about/index.html" target="_blank" rel="nofollow">关于我们</a></li>
+                                <li><a href="/about/contact.html" target="_blank" rel="nofollow">联系我们</a></li>
+                                <li><a href="/about/meiti_bd.php" target="_blank" rel="nofollow">媒体报道</a></li>
+                                <li><a href="/help" target="_blank" rel="nofollow">帮助中心</a></li>
+                                <li><a href="/about/feedback.php" target="_blank" rel="nofollow">意见反馈</a></li>
+                                <li><a href="/about/recruiter.php" target="_blank" rel="nofollow">高薪聘请</a></li>
+                                <li><a href="http://hr.to8to.com/xyzp" target="_blank" rel="nofollow">校园招聘</a></li>
+                                <li><a href="/about/law.html" target="_blank" rel="nofollow">法律声明</a></li>
+                                <li><a href="/about/shangwu.php" target="_blank" rel="nofollow">商务合作</a></li>
+                                <li><a href="/about/complain.html" target="_blank" rel="nofollow">侵权投诉</a></li>
+                            </ul>
+                            <p class="footer-company-state">
+                                免责声明：本网站部分内容由用户自行上传，如权利人发现存在误传其作品情形，请及时与本站联系。© 2018 Tubatu.com 土巴兔装修网和设计师社区 保留所有权利
+                            </p>
+                            <p class="footer-company-icp">
+                                <span>中国装修网  <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">增值电信业务许可证：粤B2-20120566号</a></span>
+                                <span><a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow" class="footer_y_icp">粤ICP备08125558号-1</a></span>
+                                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001458" class="footer_new_ga" rel="nofollow">
+                            <i class="index-icon6 fl"></i>
+                            <span>粤公网安备 44030502001458号</span>
+                        </a>
+                                <a href="https://szcert.ebs.org.cn/c0adeb1a-0ad1-476b-b4bd-661a79e90877" target="_blank" title="深圳市市场监督管理局企业主体身份公示" alt="深圳市市场监督管理局企业主体身份公示" rel="nofollow">
+                            <i class="index-icon fbc-iocn1"></i>
+                        </a>
+                                <a href="http://www.cyberpolice.cn/wfjb/" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn2"></i>
+                        </a>
+                                <a href="http://www.cyberpolice.cn/wfjb/" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn3"></i>
+                        </a>
+                                <a href="https://search.szfw.org/cert/l/CX20140929005207005275" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn4"></i>
+                        </a>
+                                <a href="http://si.trustutn.org/info?sn=345170814029859496005&amp;certType=1" target="_blank" rel="nofollow">
+                            <i class="index-icon fbc-iocn5"></i>
+                        </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btm-float" style="">
+            <div class="btm-float__bg"></div>
+            <div class="btm-float__content clearfix">
+                <img class="btm-float__img" src="images/btm_img.png" alt="">
+                <div class="btm-line">
+                    <input id="btm_number" class="btm-number" placeholder="请输入电话" type="text">
+                </div>
+                <div class="btm-city district" id="btm_citybox">
+                    <select id="city" name="city">
+                        <option value="石家庄">石家庄</option>
+                        <option value="衡水">衡水</option>
+                        <option value="邢台">邢台</option>
+                        <option value="保定">保定</option>
+                    </select>
+                </div>
+                <p class="btm-btn">抢先预约</p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
