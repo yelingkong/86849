@@ -291,7 +291,7 @@ webpackJsonp([7], {
             u = n(2),
             f = window,
             p = f.picType;
-        (0, r["default"])(document).on("click", ".tenderpop-tag", function() {
+        (0, r["default"])(document).on("click", "a.sss", function() {
             u.Cookie.set("xgtpop_flag", "1", { "path": "/", "domain": ".to8to.com", "expires": 1e8 });
             var t = (0, r["default"])(this).parent().find("img").prop("src"),
                 i = {};
@@ -595,12 +595,12 @@ webpackJsonp([7], {
                     "string" == typeof n && -1 != n.indexOf(",") && (o = n.split(","));
                     var a = "link" + (new Date).getTime(),
                         l = void 0;
-                    l = -1 !== y["default"].inArray(i, o) ? '<a href="javascript:void(0)" class="bg_filter2" id="' + a + '"><em class="icn_start"></em>已收藏</a>\n                        <a href="javascript:void(0)" class="meitu_collection tenderpop-tag"><b>装修成这样要花多少钱？</b></a>' : '<a class="bg_filter1" href="javascript:void(0)" id="' + a + '" ><em class="icn_start"></em>收藏</a>\n                    <a href="javascript:void(0)" class="meitu_collection tenderpop-tag"><b>装修成这样要花多少钱？</b></a>', (0, y["default"])(this).append(l), (0, z.bindEventWithSelector)("#" + a, "click", function(i, e) { v(i, e, t) }), R ? (0, y["default"])(".meitu_collection.tenderpop-tag").css("background-color", "#e26b24") : (0, y["default"])(".meitu_collection.tenderpop-tag").css("background-color", "#14b06a"), R = !R
+                    l = -1 !== y["default"].inArray(i, o) ? '' : '', (0, y["default"])(this).append(l), (0, z.bindEventWithSelector)("#" + a, "click", function(i, e) { v(i, e, t) }), R ? (0, y["default"])("a.sss").css("background-color", "#e26b24") : (0, y["default"])("a.sss").css("background-color", "#14b06a"), R = !R
                 }
             }), (0, y["default"])(".xmp_container > .item > span").mouseleave(function() {
-                (0, y["default"])(this).find("a.bg_filter1").remove(), (0, y["default"])(this).find("a.bg_filter2").remove(), (0, y["default"])(this).find("a.free_design").remove(), (0, y["default"])(this).find("a.meitu_collection").remove(), (0, y["default"])(this).find("a.item_img > em.tranLayer").remove(), (0, y["default"])(this).find("a.bg_filter1").remove(), (0, y["default"])(this).find("a.bg_filter2, a.bg_filter3").remove()
-            }), (0, y["default"])(".xgt_search_select > ul > li").on("click", function() {
-                (0, y["default"])(".xgt_search_select > ul > li").removeClass("on"), (0, y["default"])(this).addClass("on")
+                (0, y["default"])(this).find("a.sss").remove(), (0, y["default"])(this).find("a.bg_filter2").remove(), (0, y["default"])(this).find("a.free_design").remove(), (0, y["default"])(this).find("a.sss").remove(), (0, y["default"])(this).find("a.sss").remove(), (0, y["default"])(this).find("a.sss").remove(), (0, y["default"])(this).find("a.sss").remove()
+            }), (0, y["default"])("a.sss").on("click", function() {
+                (0, y["default"])("a.sss").removeClass("on"), (0, y["default"])(this).addClass("on")
             })
         }
         i.__esModule = !0;
@@ -621,7 +621,7 @@ webpackJsonp([7], {
             W = n(83),
             O = o(W);
         n(84), window.showPopWin = C.showPopWin, window.hidePopWin = C.hidePopWin;
-        var L = "//www.to8to.com/api/weixin/run.php",
+        var L = "",
             E = 0,
             H = 0,
             F = 0,
@@ -635,8 +635,8 @@ webpackJsonp([7], {
         i["default"] = Y
     },
     "80": function(t, i) { t.exports = "image/T8T.b11116bd892d9a1091d2f42edc51b72c.png" },
-    "81": function(t, i, n) { t.exports = '<div class="xgt_login_box" id="xgt_login_box">\n    <div class="login_box_title">微信扫一扫 立即收藏效果图</div>\n    <div class="login_box_wechatqrcode">\n        <img width="182" height="182" class="qrcode_loading qrcodeimg">\n    </div>\n    <div id="xgt_wechat_help" class="xgt_wechat_help">\n        <img src="' + n(82) + '">\n    </div>\n    <div class="login_box_tips">\n        <div class="wechat_fail" id="login_error" style="display: none;">\n            <b></b>\n            <strong>二维码失效</strong>\n            <span>请点击<a href="javascript:void(0)" id="{%=o.refreshQRCodeId%}">刷新二维码</a></span>\n        </div>\n        <div class="wechat_login_success" id="login_success" style="display: none;">\n            <b></b>\n            <strong>扫描成功</strong>\n            <span>请在手机上确认登录</span>\n        </div>\n    </div>\n    <span id="login_nomal" class="weixin_status">\n        <a href="javascript:void(0)" id="{%=o.helpLinkId%}" class="wh_link">使用帮助</a>\n    </span>\n</div>\n<div class="buttom_tips">\n    <a href="javascript:;" class="account_btn" id="{%=o.loginLinkId%}">土巴兔账号登录</a>\n    <span>|</span>\n    <a href="javascript:;" class="reg_btn" id="{%=o.registLinkId%}">免费注册</a>\n</div>\n' },
-    "82": function(t, i) { t.exports = "image/T8T.419100bb8cd32414a4e7ccf2a375b97a.jpg" },
-    "83": function(t, i) { t.exports = '<div class="collection_box_content clear">\n    <dl {% html(o.display); %} class="cbc_dl_one">\n        <dt>收藏内容</dt>\n        <dd>\n            <div class="cb_item">\n                <input name="collect_type" class="cbc_radio" type="radio" checked="checked" value="1">\n                <span  class="collect_span">收藏单张图片</span>\n            </div>\n            <div class="cb_item">\n                <input name="collect_type" class="cbc_radio" value="2" type="radio">\n                <span class="collect_span">收藏整套图片（共{%=o.picNum%}张）</span>\n            </div>\n        </dd>\n    </dl>\n    <dl class="cbc_dl_two">\n        <dt>选择专辑</dt>\n        <dd>\n            <div class="cb_item">\n                <input name="album_type" checked="checked" value=1 type="radio" class="cbc_radio" >\n                <span class="collect_span">现有专辑</span>\n                <select name="album_select">\n                    {% html(o.albumList); %}\n                </select>\n            </div>\n            <div class="cb_item">\n                <input name="album_type" class="cbc_radio" value=2 type="radio">\n                <span  class="collect_span">新建专辑</span><input name="new_album_input" class="cbc_text" type="text"/>\n            </div>\n        </dd>\n    </dl>\n</div>\n' },
+    "81": function(t, i, n) { t.exports = '' },
+    "82": function(t, i) { t.exports = "../images/T8T.419100bb8cd32414a4e7ccf2a375b97a.jpg" },
+    "83": function(t, i) { t.exports = '' },
     "84": function(t, i) {}
 }, [378]);

@@ -3715,7 +3715,10 @@ button {
     text-align: center
 }
 
-.com-address-bx{overflow: hidden;margin-bottom: 20px;}
+.com-address-bx {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
 
 .com-info-board.simple .com-address-bx {
     margin-top: 15px
@@ -4069,6 +4072,10 @@ button {
     margin: 9px 10px
 }
 
+.module-cont .card-bx:hover .card-name {
+    color: #f25618;
+}
+
 .module-cont .card-bx.hover {
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .1)
 }
@@ -4317,6 +4324,14 @@ button {
     margin-bottom: 3px;
     color: #333;
     font-size: 16px
+}
+
+.portrait-bx:hover p.portrait-name {
+    color: #f25618;
+}
+
+.craft-detail:hover p.craft-title {
+    color: #f25618;
 }
 
 .craft-bx .craft-desp {
