@@ -6940,13 +6940,6 @@ body {
     color: #0cb46a
 }
 
-.move-down .nav-content-list li.on .icon-app {
-    display: none
-}
-
-.nav-content-list li:hover .nav-app {
-    display: block
-}
 
 .swiper {
     top: 90px;
@@ -6958,103 +6951,6 @@ body {
 
 .swiper img {
     max-width: 100%
-}
-
-.header_top_right ul li .htr_mes,
-.header_top_right ul li .htr_username {
-    border-left: 1px solid #f5f5f5;
-    border-right: 1px solid #f5f5f5
-}
-
-.move-down .nav-content-center {
-    margin-left: 290px
-}
-
-.move-down .header-logo {
-    width: 83px;
-    height: 30px;
-    background-position: -245px -264px
-}
-
-.header-nav-box,
-.nav-content-list,
-.nav-content-right {
-    -webkit-transition: top .3s;
-    -moz-transition: top .3s;
-    -ms-transition: top .3s;
-    -o-transition: top .3s;
-    transition: top .3s
-}
-
-.move-down .header-nav-box,
-.move-down .nav-content-list,
-.move-down .nav-content-right {
-    height: 50px
-}
-
-.move-down .nav-content-list li {
-    height: 39px;
-    padding-top: 11px
-}
-
-.move-down .nav-content-list li.hover {
-    height: 39px
-}
-
-.move-down .nav-content-left {
-    margin-top: 9px
-}
-
-.move-down .to8to-logo-box .division-thread {
-    width: 1px;
-    height: 11px;
-    margin: 8px 10px 0 18px
-}
-
-.move-down .nav-content-slogan {
-    margin: 5px 0 0 5px
-}
-
-.move-down .nav-content-search-center {
-    height: 30px;
-    margin-top: 9px
-}
-
-.move-down .nav-app {
-    top: 39px
-}
-
-.move-down .header-nav-hover {
-    top: 51px
-}
-
-.move-down .header-page-nav {
-    top: 30px;
-    margin-top: -35px
-}
-
-.move-down .nav-content-list .last-li,
-.nav-content-list .last-li {
-    position: relative;
-    margin-right: 0
-}
-
-.move-down .nav-search-center-input {
-    padding: 8px 0 6px 8px
-}
-
-.move-down .nav-search-center-text {
-    top: 7px
-}
-
-.move-down .search-spread .nav-search-center-input {
-    padding-left: 108px
-}
-
-.move-down .header-logo-gif {
-    width: 120px;
-    height: 42px;
-    margin-top: -4px
 }
 
 .city-option-box {
@@ -12445,7 +12341,6 @@ body {
 }
 
 .xgt_meitu_pinterest {
-    background-color: #f8f8f8;
     padding-top: 10px
 }
 
